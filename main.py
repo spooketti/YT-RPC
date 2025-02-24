@@ -27,6 +27,11 @@ def getVideoId(url):
     video_id = parse_qs(parsed_url.query).get("v", [""])[0]
     return video_id
 
+def getChannelPFP(channelID):
+    request = youtube.channels().list(part="snippet",id=channelID)
+    response = request.execute()
+    return response['items'][0]['snippet']['thumbnails']['default']['url']
+
 while True:
     if(lasturl==driver.current_url):
         time.sleep(5)
@@ -35,20 +40,25 @@ while True:
     imageURL=""
     arist=""
     title=""
+    channelPFP = ""
     try:
         data = getVideoData(getVideoId(driver.current_url))
         imageURL = data['items'][0]['snippet']['thumbnails']['maxres']['url']
         artist = data['items'][0]['snippet']['channelTitle']
         title = data['items'][0]['snippet']['title']
+        channelPFP = getChannelPFP(data['items'][0]['snippet']['channelId'])
+        
     except:
         time.sleep(5)
         print("fail")
         continue
     buttonlist=[{"label":"Open Song","url":driver.current_url},
-            {"label":"Made By Spooketti","url":"https://github.com/spooketti/YT-RPCZ"}]
+            {"label":"Made By Spooketti","url":"https://github.com/spooketti/YT-RPC"}]
+    print("test")
     RPC.update(
 
                large_image=imageURL,
+               small_image=channelPFP,
                state=artist,
                details=title,
                buttons=buttonlist
