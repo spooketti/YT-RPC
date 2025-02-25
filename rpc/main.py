@@ -32,6 +32,14 @@ def getChannelPFP(channelID):
     response = request.execute()
     return response['items'][0]['snippet']['thumbnails']['default']['url']
 
+def specialSongImage(imageURL):
+    specialAlbumArt = {"https://i.ytimg.com/vi/NtVQkUdyapw/maxresdefault.jpg":"https://media.tenor.com/qnEtsD44mkQAAAAM/ricky-montgomery-montgomery-ricky.gif"}
+    if(imageURL in specialAlbumArt):
+        return specialAlbumArt[imageURL]
+    return imageURL
+    
+    
+
 while True:
     if(lasturl==driver.current_url):
         time.sleep(5)
@@ -43,25 +51,23 @@ while True:
     channelPFP = ""
     try:
         data = getVideoData(getVideoId(driver.current_url))
-        imageURL = data['items'][0]['snippet']['thumbnails']['maxres']['url']
+        imageURL = specialSongImage(data['items'][0]['snippet']['thumbnails']['maxres']['url'])
         artist = data['items'][0]['snippet']['channelTitle']
         title = data['items'][0]['snippet']['title']
         channelPFP = getChannelPFP(data['items'][0]['snippet']['channelId'])
         
     except:
         time.sleep(5)
-        print("fail")
         continue
     buttonlist=[{"label":"Open Song","url":driver.current_url},
             {"label":"Made By Spooketti","url":"https://github.com/spooketti/YT-RPC"}]
-    print("test")
     RPC.update(
 
                large_image=imageURL,
                small_image=channelPFP,
                state=artist,
                details=title,
-               buttons=buttonlist
+               buttons=buttonlist,
                )
     time.sleep(15) # Can only update rich presence every 15 seconds
     

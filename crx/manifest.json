@@ -1,0 +1,10 @@
+{
+    "name": "YT-RPC Listen Together Extension",
+    "description": "Handle Selenium browser data",
+    "version": "1.0",
+    "manifest_version": 3,
+    "action": {
+      "default_popup": "hello.html",
+      "default_icon": "hello_extensions.png"
+    }
+  }
