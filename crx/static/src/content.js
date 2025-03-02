@@ -1,7 +1,7 @@
 ws = new WebSocket("wss://yt-rpc.onrender.com")
 
 ws.onopen = () => {
-    
+    console.log("connected")
 };
 
 ws.onmessage = (event) => {
@@ -34,7 +34,7 @@ const servers = {
     iceCandidatePoolSize: 10,
 };
 
-socket.onmessage = async function (event) {
+ws.onmessage = async function (event) {
     const messageData = JSON.parse(event.data);
     switch (messageData["context"]) {
 

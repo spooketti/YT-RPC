@@ -66,6 +66,7 @@ options = {
 }
 
 async def handle_websocket(websocket, path):
+    global broadcasterID
     uid = str(uuid.uuid4())
     connected_clients.update({uid:websocket})   
     try:
