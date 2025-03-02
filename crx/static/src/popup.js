@@ -1,4 +1,4 @@
-document.getElementById("bruh").addEventListener("click", async () => {
+document.getElementById("streamMusic").addEventListener("click", async () => {
     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     
     if (tab) {

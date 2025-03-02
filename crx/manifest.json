@@ -1,7 +1,7 @@
 {
   "name": "YT-RPC Listen Together Extension",
   "description": "Handle Selenium browser data",
-  "version": "1.0",
+  "version": "1.1",
   "manifest_version": 3,
   "permissions": [
       "activeTab",

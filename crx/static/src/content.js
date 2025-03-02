@@ -1,11 +1,7 @@
 ws = new WebSocket("wss://yt-rpc.onrender.com")
 
 ws.onopen = () => {
-    console.log("connected")
-};
-
-ws.onmessage = (event) => {
-    alert(event.data)
+    console.log("YT-RPC: Connected to Websocket")
 };
 
 ws.onclose = () => {
@@ -13,6 +9,7 @@ ws.onclose = () => {
 };
 
 let globalPeer
+let videoStreamGlobal
 
 const servers = {
     iceServers: [
@@ -84,10 +81,9 @@ function sendMessage(message) {
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.action === "startBroadcast") {
-        chromeToGetMediaHandshake();
-
-        return true; // Indicates an async response might be sent later
+        chromeToGetMediaHandshake()
     }
+    return false;
 });
 
 async function chromeToGetMediaHandshake() {
@@ -95,10 +91,7 @@ async function chromeToGetMediaHandshake() {
 }
 
 async function startBroadcast() {
-    navigator.mediaDevices.getUserMedia({ audio: true })
-        .then(stream => {
-            
-        })
-        .catch(error => console.error("Error accessing microphone:", error));
-    ws.send({context:"BroadcastReady"})
+    videoStreamGlobal = await navigator.mediaDevices.getDisplayMedia({ audio: true,selfBrowserSurface: "include", })
+
+    ws.send(JSON.stringify({context:"BroadcastReady"}))
 }

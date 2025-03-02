@@ -71,7 +71,6 @@ async def handle_websocket(websocket, path):
     connected_clients.update({uid:websocket})   
     try:
         async for message in websocket:
-            print(f"Received message: {message}")
             try:
                 data = json.loads(message)
             except json.JSONDecodeError:

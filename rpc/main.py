@@ -69,7 +69,7 @@ while True:
     except:
         time.sleep(5)
         continue
-    buttonlist=[{"label":"Open Song","url":driver.current_url},
+    buttonlist=[{"label":"Listen Together","url":"https://spooketti.github.io/YT-RPC/"},
             {"label":"Made By Spooketti","url":"https://github.com/spooketti/YT-RPC"}]
     if(not workingOnBlockedWifi):
         RPC.update(
