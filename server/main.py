@@ -3,6 +3,7 @@ import websockets
 import json
 import uuid
 
+print("the saints went marching in")
 connected_clients = {}
 broadcasterID = None
 
