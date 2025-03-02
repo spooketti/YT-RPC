@@ -5,9 +5,9 @@ from selenium.webdriver.edge.options import Options
 from urllib.parse import urlparse, parse_qs
 from dotenv import load_dotenv
 from googleapiclient.discovery import build
-import websockets
-import asyncio
-import json
+# import websockets
+# import asyncio
+# import json
 import os
 load_dotenv()
 
@@ -51,9 +51,7 @@ def specialSongImage(imageURL):
         return specialAlbumArt[imageURL]
     return imageURL
     
-async def main():
-    async with websockets.connect("wss://yt-rpc.onrender.com/") as ws:
-        while True:
+while True:
             if(lasturl==driver.current_url):
                 time.sleep(5)
                 continue
@@ -68,7 +66,7 @@ async def main():
                 artist = data['items'][0]['snippet']['channelTitle']
                 title = data['items'][0]['snippet']['title']
                 channelPFP = getChannelPFP(data['items'][0]['snippet']['channelId'])
-                await ws.send(json.dumps({"context":"artUpdate","title":title,"artist":artist,"imageURL":imageURL}))
+                # await ws.send(json.dumps({"context":"artUpdate","title":title,"artist":artist,"imageURL":imageURL}))
                 
             except:
                 time.sleep(5)
@@ -85,6 +83,4 @@ async def main():
                     buttons=buttonlist,
                     )
             time.sleep(15) # Can only update rich presence every 15 seconds
-            
-asyncio.run(main())
             
