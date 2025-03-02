@@ -37,26 +37,16 @@ const servers = {
 socket.onmessage = async function (event) {
     const messageData = JSON.parse(event.data);
     switch (messageData["context"]) {
+
         case "viewerOfferServer":
             viewerOfferServer(messageData);
-            break;
-        case "viewerAcceptServer":
-            viewerAcceptServer(messageData);
-            break;
+        break;
+
         case "iceToStreamerServer":
-        case "iceToViewerServer":
             globalPeer.addIceCandidate(new RTCIceCandidate(JSON.parse(messageData["candidate"])));
-            break;
+        break;
     }
 };
-
-function sendMessage(message) {
-    if (ws.readyState === WebSocket.OPEN) {
-        ws.send(JSON.stringify(message));
-        return
-    } 
-    console.error("YT-RPC: Websocket not open")
-}
 
 async function viewerOfferServer(messageData) {
     const peer = new RTCPeerConnection(servers);
@@ -84,31 +74,12 @@ async function viewerOfferServer(messageData) {
         returnID: messageData["returnID"]
     });
 }
-
-function viewerAcceptServer(messageData) {
-    let remotedesc = new RTCSessionDescription({
-        type: "answer",
-        sdp: messageData["sdp"]
-    });
-    
-    if (globalPeer.signalingState === "stable") {
-        console.warn("Skipping setRemoteDescription because connection is already stable.");
-        return;
-    }
-    
-    globalPeer.setRemoteDescription(remotedesc)
-        .then(() => {
-            console.log("Remote description set successfully.");
-        })
-        .catch(error => {
-            console.error("Failed to set remote description:", error);
-        });
-    
-    globalPeer.ontrack = (event) => {
-        document.getElementById("mortStream").srcObject = event.streams[0];
-        document.getElementById("mortStream").style.display = "block";
-        document.getElementById("streamOffline").style.display = "none";
-    };
+function sendMessage(message) {
+    if (ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify(message));
+        return
+    } 
+    console.error("YT-RPC: Websocket not open")
 }
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -126,7 +97,7 @@ async function chromeToGetMediaHandshake() {
 async function startBroadcast() {
     navigator.mediaDevices.getUserMedia({ audio: true })
         .then(stream => {
-            console.log("win")
+            
         })
         .catch(error => console.error("Error accessing microphone:", error));
     ws.send({context:"BroadcastReady"})
