@@ -56,5 +56,84 @@ html
     left:0;
     height:100%;
     width:200px;
-    background-color: black;
+    background: linear-gradient(90deg,rgb(14, 0, 20),#160d17);
+    background-size: 120% 120%;
+    animation: gradient-animation 120s ease infinite;
+}
+
+#songMenu {
+  position: absolute;
+  left: 200px;
+  height: 100%;
+  width: calc(100% - 400px);
+}
+
+#rightMenu
+{
+    position: absolute;
+    right:0;
+    height:100%;
+    width:200px;
+    background: linear-gradient(90deg,rgb(14, 0, 20),#160d17);
+    background-size: 120% 120%;
+    animation: gradient-animation 120s ease infinite;
+}
+
+#songInfo {
+  position: absolute;
+  bottom: 61px;
+  height: 60px;
+  width: 100%;
+  background: linear-gradient(90deg, rgb(14, 0, 20), #160d17);
+  background-size: 120% 120%;
+  animation: gradient-animation 120sease infinite;
+}
+
+#songTitle
+{
+  font-family: "Noto Music", serif;
+  color:rgb(255, 251, 220);
+}
+
+#songArtist
+{
+  font-family: "Noto Music", serif;
+  color:rgb(255, 251, 220);
+}
+
+#albumCover
+{
+  width: 100%;
+  height: calc(100% - 121px);
+}
+
+#ConnectButton
+{
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 121px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgb(108, 74, 140);
+  cursor:pointer;
+  transition: 0.5s;
+}
+
+#ConnectButton:hover
+{
+  filter:brightness(120%);
+}
+
+#ConnectIcon
+{
+  font-size: 1000%;
+}
+
+#ConnectText
+{
+  font-family: "Noto Music", serif;
+  color:black;
+  font-size: large;
 }

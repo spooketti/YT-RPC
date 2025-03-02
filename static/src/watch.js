@@ -31,6 +31,11 @@ socket.onmessage = async function (event) {
         case "iceToViewerServer":
             globalPeer.addIceCandidate(new RTCIceCandidate(JSON.parse(messageData["candidate"])));
         break;
+        case "artUpdate":
+            document.getElementById("albumCover").src = messageData["imageURL"]
+            document.getElementById("songTitle").innerText = messageData["title"]
+            document.getElementById("songArtist").innerText = messageData["artist"]
+        break;
     }
 };
 
@@ -63,6 +68,7 @@ function viewerAcceptServer(messageData) {
     
     globalPeer.ontrack = (event) => {
         document.getElementById("audioElement").srcObject = event.streams[0];
+        document.getElementById("ConnectButton").remove()
     };
 }
 

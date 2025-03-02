@@ -5,11 +5,14 @@ from selenium.webdriver.edge.options import Options
 from urllib.parse import urlparse, parse_qs
 from dotenv import load_dotenv
 from googleapiclient.discovery import build
+import websockets
+import asyncio
+import json
 import os
 load_dotenv()
 
 options = webdriver.EdgeOptions()
-options.add_extension("./crx/private/crx.crx")
+options.add_extension("./private/crx.crx")
 client_id = os.getenv('CLIENT_ID')
 ytApiKey = os.getenv("YOUTUBE_API_KEY")
 RPC = None
@@ -48,37 +51,40 @@ def specialSongImage(imageURL):
         return specialAlbumArt[imageURL]
     return imageURL
     
-    
+async def main():
+    async with websockets.connect("wss://yt-rpc.onrender.com/") as ws:
+        while True:
+            if(lasturl==driver.current_url):
+                time.sleep(5)
+                continue
+            lasturl = driver.current_url
+            imageURL=""
+            arist=""
+            title=""
+            channelPFP = ""
+            try:
+                data = getVideoData(getVideoId(driver.current_url))
+                imageURL = specialSongImage(data['items'][0]['snippet']['thumbnails']['maxres']['url'])
+                artist = data['items'][0]['snippet']['channelTitle']
+                title = data['items'][0]['snippet']['title']
+                channelPFP = getChannelPFP(data['items'][0]['snippet']['channelId'])
+                await ws.send(json.dumps({"context":"artUpdate","title":title,"artist":artist,"imageURL":imageURL}))
+                
+            except:
+                time.sleep(5)
+                continue
+            buttonlist=[{"label":"Listen Together","url":"https://spooketti.github.io/YT-RPC/"},
+                    {"label":"Made By Spooketti","url":"https://github.com/spooketti/YT-RPC"}]
+            if(not workingOnBlockedWifi):
+                RPC.update(
 
-while True:
-    if(lasturl==driver.current_url):
-        time.sleep(5)
-        continue
-    lasturl = driver.current_url
-    imageURL=""
-    arist=""
-    title=""
-    channelPFP = ""
-    try:
-        data = getVideoData(getVideoId(driver.current_url))
-        imageURL = specialSongImage(data['items'][0]['snippet']['thumbnails']['maxres']['url'])
-        artist = data['items'][0]['snippet']['channelTitle']
-        title = data['items'][0]['snippet']['title']
-        channelPFP = getChannelPFP(data['items'][0]['snippet']['channelId'])
-        
-    except:
-        time.sleep(5)
-        continue
-    buttonlist=[{"label":"Listen Together","url":"https://spooketti.github.io/YT-RPC/"},
-            {"label":"Made By Spooketti","url":"https://github.com/spooketti/YT-RPC"}]
-    if(not workingOnBlockedWifi):
-        RPC.update(
-
-               large_image=imageURL,
-               small_image=channelPFP,
-               state=artist,
-               details=title,
-               buttons=buttonlist,
-               )
-    time.sleep(15) # Can only update rich presence every 15 seconds
-    
+                    large_image=imageURL,
+                    small_image=channelPFP,
+                    state=artist,
+                    details=title,
+                    buttons=buttonlist,
+                    )
+            time.sleep(15) # Can only update rich presence every 15 seconds
+            
+asyncio.run(main())
+            
