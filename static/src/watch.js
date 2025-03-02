@@ -18,7 +18,7 @@ const servers = {
     iceCandidatePoolSize: 10,
 };
 
-const socket = new WebSocket("ws://localhost:8765");
+const socket = new WebSocket("wss://yt-rpc.onrender.com");
 let videoStreamGlobal;
 let globalPeer;
 

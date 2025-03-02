@@ -1,4 +1,4 @@
-ws = new WebSocket("ws://localhost:8765")
+ws = new WebSocket("wss://yt-rpc.onrender.com")
 
 ws.onopen = () => {
     
