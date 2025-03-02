@@ -1,6 +1,7 @@
 html
 {
     height:100%;
+    background-color: black;
 }
 
 #header {
@@ -62,6 +63,8 @@ html
 }
 
 #songMenu {
+  display: flex;
+  justify-content: center;
   position: absolute;
   left: 200px;
   height: 100%;
@@ -103,7 +106,6 @@ html
 
 #albumCover
 {
-  width: 100%;
   height: calc(100% - 121px);
 }
 
