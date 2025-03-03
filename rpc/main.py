@@ -65,6 +65,8 @@ while True:
                 imageURL = specialSongImage(data['items'][0]['snippet']['thumbnails']['maxres']['url'])
                 artist = data['items'][0]['snippet']['channelTitle']
                 title = data['items'][0]['snippet']['title']
+                if(len(title) <= 2):
+                    title += "  "
                 channelPFP = getChannelPFP(data['items'][0]['snippet']['channelId'])
                 # await ws.send(json.dumps({"context":"artUpdate","title":title,"artist":artist,"imageURL":imageURL}))
                 
