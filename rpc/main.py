@@ -42,7 +42,7 @@ def getChannelPFP(channelID):
     return response['items'][0]['snippet']['thumbnails']['default']['url']
 
 def specialSongImage(imageURL):
-    specialAlbumArt = {"https://i.ytimg.com/vi/NtVQkUdyapw/maxresdefault.jpg":"https://media.tenor.com  /qnEtsD44mkQAAAAM/ricky-montgomery-montgomery-ricky.gif", #mr loverman
+    specialAlbumArt = {"https://i.ytimg.com/vi/NtVQkUdyapw/maxresdefault.jpg":"https://media.tenor.com/qnEtsD44mkQAAAAM/ricky-montgomery-montgomery-ricky.gif", #mr loverman
                        "https://i.ytimg.com/vi/k7kzc3Nof08/maxresdefault.jpg":"https://media.tenor.com/ATdTvm5YQw0AAAAM/roblox-car-crash.gif", #i love you so
                        "https://i.ytimg.com/vi/8KoyWSzcWqU/maxresdefault.jpg":"https://i.imgflip.com/9lkvtr.gif", #she wants me to be loved
                        "https://i.ytimg.com/vi/6P-43ukn_l0/maxresdefault.jpg":"https://i.makeagif.com/media/2-28-2025/f5vwkz.gif", #cancer
