@@ -48,7 +48,8 @@ def specialSongImage(imageURL):
                        "https://i.ytimg.com/vi/6P-43ukn_l0/maxresdefault.jpg":"https://i.makeagif.com/media/2-28-2025/f5vwkz.gif", #cancer
                        "https://i.ytimg.com/vi/gm-Y9idMMQ4/maxresdefault.jpg":"https://media.tenor.com/bZrOdhRikM0AAAAM/coldplay-a-rush-of-blood-to-the-head.gif", #the scientist
                        "https://i.ytimg.com/vi/6LEs1yKXnb8/maxresdefault.jpg":"https://i.makeagif.com/media/3-07-2025/SleHgO.gif",#tek it
-                       "https://i.ytimg.com/vi/9r0EqOIELbs/maxresdefault.jpg":"https://i.makeagif.com/media/3-07-2025/Lmf04v.gif"}#keshi blue even though u cna hardly tell 
+                       "https://i.ytimg.com/vi/9r0EqOIELbs/maxresdefault.jpg":"https://i.makeagif.com/media/3-07-2025/Lmf04v.gif",#keshi blue even though u cna hardly tell 
+                       "https://i.ytimg.com/vi/TxpVLoYDgwo/maxresdefault.jpg":"https://i.makeagif.com/media/3-07-2025/svlz_X.gif"} #laufey lovesick
     if(imageURL in specialAlbumArt):
         return specialAlbumArt[imageURL]
     return imageURL
