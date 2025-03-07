@@ -46,7 +46,9 @@ def specialSongImage(imageURL):
                        "https://i.ytimg.com/vi/k7kzc3Nof08/maxresdefault.jpg":"https://media.tenor.com/ATdTvm5YQw0AAAAM/roblox-car-crash.gif", #i love you so
                        "https://i.ytimg.com/vi/8KoyWSzcWqU/maxresdefault.jpg":"https://i.imgflip.com/9lkvtr.gif", #she wants me to be loved
                        "https://i.ytimg.com/vi/6P-43ukn_l0/maxresdefault.jpg":"https://i.makeagif.com/media/2-28-2025/f5vwkz.gif", #cancer
-                       "https://i.ytimg.com/vi/gm-Y9idMMQ4/maxresdefault.jpg":"https://media.tenor.com/bZrOdhRikM0AAAAM/coldplay-a-rush-of-blood-to-the-head.gif"} #the scientist
+                       "https://i.ytimg.com/vi/gm-Y9idMMQ4/maxresdefault.jpg":"https://media.tenor.com/bZrOdhRikM0AAAAM/coldplay-a-rush-of-blood-to-the-head.gif", #the scientist
+                       "https://i.ytimg.com/vi/6LEs1yKXnb8/maxresdefault.jpg":"https://i.makeagif.com/media/3-07-2025/SleHgO.gif",#tek it
+                       "https://i.ytimg.com/vi/9r0EqOIELbs/maxresdefault.jpg":"https://i.makeagif.com/media/3-07-2025/Lmf04v.gif"}#keshi blue even though u cna hardly tell 
     if(imageURL in specialAlbumArt):
         return specialAlbumArt[imageURL]
     return imageURL
