@@ -21,7 +21,7 @@
               "https://music.youtube.com/*",
               "https://www.youtube.com/*"
           ],
-          "js": ["static/src/content.js"]
+          "js": ["static/src/content.js","static/src/block.js"]
       }
   ]
 }
