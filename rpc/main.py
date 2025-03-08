@@ -67,6 +67,7 @@ while True:
                 data = getVideoData(getVideoId(driver.current_url))
                 imageURL = specialSongImage(data['items'][0]['snippet']['thumbnails']['maxres']['url'])
                 artist = data['items'][0]['snippet']['channelTitle']
+                artist = artist.replace(" - Topic", "")
                 title = data['items'][0]['snippet']['title']
                 if(len(title) <= 2):
                     title += "  "
