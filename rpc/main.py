@@ -85,7 +85,11 @@ while True:
                     small_image=channelPFP,
                     state=artist,
                     details=title,
+                    small_text=artist,
+                    large_text=title,
                     buttons=buttonlist,
+                    # party_size=[0,5], #listen together party size,
+                    # party_id="YT-RPC"
                     )
             time.sleep(15) # Can only update rich presence every 15 seconds
             
