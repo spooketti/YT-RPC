@@ -52,7 +52,8 @@ def specialSongImage(imageURL):
                        "https://i.ytimg.com/vi/VfBswbj1824/maxresdefault.jpg":"https://media.tenor.com/VM10Cu2CKXEAAAAC/lagtrain-anime.gif", #lagtrain 
                        "https://i.ytimg.com/vi/TxpVLoYDgwo/maxresdefault.jpg":"https://i.makeagif.com/media/3-07-2025/svlz_X.gif", #laufey lovesick
                        "https://i.ytimg.com/vi/GYlL6HjTQgk/hqdefault.jpg":"https://c.tenor.com/2xTyEWuuWvUAAAAd/tenor.gif", #shiwasenara
-                        "https://i.ytimg.com/vi/aHmg0jsmNhg/maxresdefault.jpg":"https://images.genius.com/f83b0048db86544e0eb6e45e8551b02e.382x382x249.gif"} #vampire
+                        "https://i.ytimg.com/vi/aHmg0jsmNhg/maxresdefault.jpg":"https://images.genius.com/f83b0048db86544e0eb6e45e8551b02e.382x382x249.gif", #vampire
+                        "https://i.ytimg.com/vi/dhd_wb7kJB4/hqdefault.jpg":"https://i.makeagif.com/media/3-19-2025/SecNmN.gif"} #kimi no taion
     if(imageURL in specialAlbumArt):
         return specialAlbumArt[imageURL]
     return imageURL
@@ -65,14 +66,29 @@ def secretAlbumText(songID,notInSecretText):
     if(songID in speicalAlbumSecret):
         return speicalAlbumSecret[songID]
     return notInSecretText
+
+def artistOverride(songID,artist):
+    override = {"GYlL6HjTQgk":"Goro Majima",#shiwasenara
+                "dhd_wb7kJB4":"Kuwagata-P"} #kimi no taion
+
+    if(songID in override):
+        return override[songID]
+    return artist
     
+def titleOverride(songID,title):
+    overrideTitle = {"dhd_wb7kJB4":"Kimi no Taion"} #kimi no taion
+
+    if(songID in overrideTitle):
+        return overrideTitle[songID]
+    return title
+
 while True:
             if(lasturl==driver.current_url):
                 time.sleep(5)
                 continue
             lasturl = driver.current_url
             imageURL=""
-            arist=""
+            artist=""
             title=""
             channelPFP = ""
             largeText = ""
@@ -85,9 +101,11 @@ while True:
                     imageURL = specialSongImage(data['items'][0]['snippet']['thumbnails']['high']['url'])
                 artist = data['items'][0]['snippet']['channelTitle']
                 artist = artist.replace(" - Topic", "")
+                artist = artistOverride(songID,artist)
                 title = data['items'][0]['snippet']['title']
                 if(len(title) <= 2):
                     title += "  "
+                title = titleOverride(songID,title)
                 largeText = secretAlbumText(songID,title)
                 channelPFP = getChannelPFP(data['items'][0]['snippet']['channelId'])
                 # await ws.send(json.dumps({"context":"artUpdate","title":title,"artist":artist,"imageURL":imageURL}))
