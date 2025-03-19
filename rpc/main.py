@@ -51,7 +51,8 @@ def specialSongImage(imageURL):
                        "https://i.ytimg.com/vi/9r0EqOIELbs/maxresdefault.jpg":"https://i.makeagif.com/media/3-07-2025/Lmf04v.gif",#keshi blue even though u cna hardly tell
                        "https://i.ytimg.com/vi/VfBswbj1824/maxresdefault.jpg":"https://media.tenor.com/VM10Cu2CKXEAAAAC/lagtrain-anime.gif", #lagtrain 
                        "https://i.ytimg.com/vi/TxpVLoYDgwo/maxresdefault.jpg":"https://i.makeagif.com/media/3-07-2025/svlz_X.gif", #laufey lovesick
-                       "https://i.ytimg.com/vi/GYlL6HjTQgk/hqdefault.jpg":"https://c.tenor.com/2xTyEWuuWvUAAAAd/tenor.gif"} #shiwasenara
+                       "https://i.ytimg.com/vi/GYlL6HjTQgk/hqdefault.jpg":"https://c.tenor.com/2xTyEWuuWvUAAAAd/tenor.gif", #shiwasenara
+                        "https://i.ytimg.com/vi/aHmg0jsmNhg/maxresdefault.jpg":"https://images.genius.com/f83b0048db86544e0eb6e45e8551b02e.382x382x249.gif"} #vampire
     if(imageURL in specialAlbumArt):
         return specialAlbumArt[imageURL]
     return imageURL
