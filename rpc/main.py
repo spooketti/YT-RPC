@@ -57,7 +57,9 @@ def specialSongImage(imageURL):
     return imageURL
 
 def secretAlbumText(songID,notInSecretText):
-    speicalAlbumSecret = {"GYlL6HjTQgk":"as long as you're happy, LW"}
+    speicalAlbumSecret = {"GYlL6HjTQgk":"as long as you're happy, LW",#shiwasenara
+                          "TxpVLoYDgwo":"what have you done to me?", #lovesick
+                          "OZYd9JxithE":"i know you're not sorry, why should you be?"} #8
 
     if(songID in speicalAlbumSecret):
         return speicalAlbumSecret[songID]
@@ -83,9 +85,9 @@ while True:
                 artist = data['items'][0]['snippet']['channelTitle']
                 artist = artist.replace(" - Topic", "")
                 title = data['items'][0]['snippet']['title']
-                largeText = secretAlbumText(songID,title)
                 if(len(title) <= 2):
                     title += "  "
+                largeText = secretAlbumText(songID,title)
                 channelPFP = getChannelPFP(data['items'][0]['snippet']['channelId'])
                 # await ws.send(json.dumps({"context":"artUpdate","title":title,"artist":artist,"imageURL":imageURL}))
                 
