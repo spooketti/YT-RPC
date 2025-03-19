@@ -50,10 +50,18 @@ def specialSongImage(imageURL):
                        "https://i.ytimg.com/vi/6LEs1yKXnb8/maxresdefault.jpg":"https://i.makeagif.com/media/3-07-2025/SleHgO.gif",#tek it
                        "https://i.ytimg.com/vi/9r0EqOIELbs/maxresdefault.jpg":"https://i.makeagif.com/media/3-07-2025/Lmf04v.gif",#keshi blue even though u cna hardly tell
                        "https://i.ytimg.com/vi/VfBswbj1824/maxresdefault.jpg":"https://media.tenor.com/VM10Cu2CKXEAAAAC/lagtrain-anime.gif", #lagtrain 
-                       "https://i.ytimg.com/vi/TxpVLoYDgwo/maxresdefault.jpg":"https://i.makeagif.com/media/3-07-2025/svlz_X.gif"} #laufey lovesick
+                       "https://i.ytimg.com/vi/TxpVLoYDgwo/maxresdefault.jpg":"https://i.makeagif.com/media/3-07-2025/svlz_X.gif", #laufey lovesick
+                       "https://i.ytimg.com/vi/GYlL6HjTQgk/hqdefault.jpg":"https://c.tenor.com/2xTyEWuuWvUAAAAd/tenor.gif"} #shiwasenara
     if(imageURL in specialAlbumArt):
         return specialAlbumArt[imageURL]
     return imageURL
+
+def secretAlbumText(songID,notInSecretText):
+    speicalAlbumSecret = {"GYlL6HjTQgk":"as long as you're happy, LW"}
+
+    if(songID in speicalAlbumSecret):
+        return speicalAlbumSecret[songID]
+    return notInSecretText
     
 while True:
             if(lasturl==driver.current_url):
@@ -64,18 +72,26 @@ while True:
             arist=""
             title=""
             channelPFP = ""
+            largeText = ""
             try:
-                data = getVideoData(getVideoId(driver.current_url))
-                imageURL = specialSongImage(data['items'][0]['snippet']['thumbnails']['maxres']['url'])
+                songID = getVideoId(driver.current_url)
+                data = getVideoData(songID)
+                if("maxres" in data['items'][0]['snippet']['thumbnails']):
+                    imageURL = specialSongImage(data['items'][0]['snippet']['thumbnails']['maxres']['url'])
+                else:
+                    imageURL = specialSongImage(data['items'][0]['snippet']['thumbnails']['high']['url'])
+                print(imageURL)
                 artist = data['items'][0]['snippet']['channelTitle']
                 artist = artist.replace(" - Topic", "")
                 title = data['items'][0]['snippet']['title']
+                largeText = secretAlbumText(songID,title)
                 if(len(title) <= 2):
                     title += "  "
                 channelPFP = getChannelPFP(data['items'][0]['snippet']['channelId'])
                 # await ws.send(json.dumps({"context":"artUpdate","title":title,"artist":artist,"imageURL":imageURL}))
                 
-            except:
+            except Exception as e:
+                print(e)
                 time.sleep(5)
                 continue
             buttonlist=[{"label":"Listen Together","url":"https://spooketti.github.io/YT-RPC/"},
@@ -88,7 +104,7 @@ while True:
                     state=artist,
                     details=title,
                     small_text=artist,
-                    large_text=title,
+                    large_text=largeText,
                     buttons=buttonlist,
                     # party_size=[0,5], #listen together party size,
                     # party_id="YT-RPC"
