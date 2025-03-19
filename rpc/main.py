@@ -80,7 +80,6 @@ while True:
                     imageURL = specialSongImage(data['items'][0]['snippet']['thumbnails']['maxres']['url'])
                 else:
                     imageURL = specialSongImage(data['items'][0]['snippet']['thumbnails']['high']['url'])
-                print(imageURL)
                 artist = data['items'][0]['snippet']['channelTitle']
                 artist = artist.replace(" - Topic", "")
                 title = data['items'][0]['snippet']['title']
@@ -91,7 +90,7 @@ while True:
                 # await ws.send(json.dumps({"context":"artUpdate","title":title,"artist":artist,"imageURL":imageURL}))
                 
             except Exception as e:
-                print(e)
+                # print(e)
                 time.sleep(5)
                 continue
             buttonlist=[{"label":"Listen Together","url":"https://spooketti.github.io/YT-RPC/"},
