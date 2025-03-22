@@ -30,8 +30,8 @@ function removeAds() {
             if (popupContainer?.style.display === "") popupContainer.style.display = 'none';
 
             let skipButtons = [
-                '.ytp-ad-skip-button-container', '.ytp-ad-skip-button-modern', 
-                '.videoAdUiSkipButton', '.ytp-ad-skip-button', 
+                '.ytp-ad-skip-button-container', '.ytp-ad-skip-button-modern',
+                '.videoAdUiSkipButton', '.ytp-ad-skip-button',
                 '.ytp-ad-skip-button-slot'
             ];
 
@@ -54,6 +54,19 @@ function removeAds() {
             }
         }
 
-        document.querySelectorAll(".ytmusic-popup-container").forEach(el => el.remove());
+        document.querySelectorAll(".ytmusic-popup-container").forEach(el => {
+            if (!findElementWithText(el, "View song credits")) {
+                el.remove()
+            }
+        });
     }, 50);
+}
+
+function findElementWithText(root, text) {
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+        acceptNode: (node) => node.nodeValue.trim() === text ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP
+    });
+
+    const textNode = walker.nextNode();
+    return textNode ? textNode.parentElement : null;
 }
