@@ -53,6 +53,7 @@ def specialSongImage(imageURL):
                        "https://i.ytimg.com/vi/TxpVLoYDgwo/maxresdefault.jpg":"https://i.makeagif.com/media/3-07-2025/svlz_X.gif", #laufey lovesick
                        "https://i.ytimg.com/vi/GYlL6HjTQgk/hqdefault.jpg":"https://c.tenor.com/2xTyEWuuWvUAAAAd/tenor.gif", #shiwasenara
                         "https://i.ytimg.com/vi/aHmg0jsmNhg/maxresdefault.jpg":"https://images.genius.com/f83b0048db86544e0eb6e45e8551b02e.382x382x249.gif", #vampire
+                        "https://i.ytimg.com/vi/3hgabcFcp4A/maxresdefault.jpg":"https://media1.tenor.com/m/NgWUl-LbntoAAAAd/invincible-fly.gif", #feel it
                         "https://i.ytimg.com/vi/dhd_wb7kJB4/hqdefault.jpg":"https://i.makeagif.com/media/3-19-2025/SecNmN.gif"} #kimi no taion
     if(imageURL in specialAlbumArt):
         return specialAlbumArt[imageURL]
@@ -61,6 +62,7 @@ def specialSongImage(imageURL):
 def secretAlbumText(songID,notInSecretText):
     speicalAlbumSecret = {"GYlL6HjTQgk":"as long as you're happy, LW",#shiwasenara
                           "TxpVLoYDgwo":"what have you done to me?", #lovesick
+                          "3hgabcFcp4A":"I JUST LOVE THE WAY YOU GOT ME FEEELIN", #feel it
                           "OZYd9JxithE":"i know you're not sorry, why should you be?"} #8
 
     if(songID in speicalAlbumSecret):
