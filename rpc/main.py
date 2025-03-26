@@ -54,6 +54,7 @@ def specialSongImage(imageURL):
                        "https://i.ytimg.com/vi/GYlL6HjTQgk/hqdefault.jpg":"https://c.tenor.com/2xTyEWuuWvUAAAAd/tenor.gif", #shiwasenara
                         "https://i.ytimg.com/vi/aHmg0jsmNhg/maxresdefault.jpg":"https://images.genius.com/f83b0048db86544e0eb6e45e8551b02e.382x382x249.gif", #vampire
                         "https://i.ytimg.com/vi/3hgabcFcp4A/maxresdefault.jpg":"https://media1.tenor.com/m/NgWUl-LbntoAAAAd/invincible-fly.gif", #feel it
+                        "https://i.ytimg.com/vi/HFVlEft9uEs/maxresdefault.jpg":"https://media1.tenor.com/m/o_g7vMhH_BwAAAAd/jam-car.gif",
                         "https://i.ytimg.com/vi/dhd_wb7kJB4/hqdefault.jpg":"https://i.makeagif.com/media/3-19-2025/SecNmN.gif"} #kimi no taion
     if(imageURL in specialAlbumArt):
         return specialAlbumArt[imageURL]
