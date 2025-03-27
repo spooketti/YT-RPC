@@ -27,6 +27,8 @@ driver = webdriver.Edge(options=options) # i use edge cause it guilt tripped me 
 driver.get("https://music.youtube.com")
 youtube = build("youtube","v3",developerKey=ytApiKey)
 lasturl = ""
+buttonlist=[{"label":"Listen Together","url":"https://spooketti.github.io/YT-RPC/"},
+                    {"label":"Made By Spooketti","url":"https://github.com/spooketti/YT-RPC"}]
 
 def getVideoData(vidId):
     request = youtube.videos().list(part="snippet", id=vidId)
@@ -90,10 +92,23 @@ def titleOverride(songID,title):
         return overrideTitle[songID]
     return title
 
+wasPaused = False #i ngl have 0 clue why the wasPaused system even works so if anyone could tell me how
+#i would aprpeicate this: this litearlly should nto work but it does
 while True:
-            if(lasturl==driver.current_url):
+            if(lasturl==driver.current_url and not wasPaused):
+                if(driver.execute_script("let video = document.querySelector('video'); return video ? video.paused : null;")):
+                    RPC.update(large_image="  ",
+                    small_image="  ",
+                    state="  ",
+                    details="Currently Paused",
+                    small_text="  ",
+                    large_text="  ",
+                    buttons=buttonlist,)
+                    wasPaused = True
+                    time.sleep(10)
                 time.sleep(5)
                 continue
+            wasPaused = False
             lasturl = driver.current_url
             imageURL=""
             artist=""
@@ -122,8 +137,6 @@ while True:
                 # print(e)
                 time.sleep(5)
                 continue
-            buttonlist=[{"label":"Listen Together","url":"https://spooketti.github.io/YT-RPC/"},
-                    {"label":"Made By Spooketti","url":"https://github.com/spooketti/YT-RPC"}]
             if(not workingOnBlockedWifi):
                 RPC.update(
 
