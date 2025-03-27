@@ -7,7 +7,7 @@ But:
 crx folder: chrome extension that the Selenium browser runs and sends out peerconnection with WebRTC to transfer the music out
 if you are to trying to make this work for you: go to chrome://extensions and then pack the crx folder into an extension
 
-(gitignored) private folder in root directory: crx.crx and the pem file
+(gitignored) private folder in rpc directory: crx.crx and the pem file
 
 rpc folder: (gitignored .env file with YOUTUBE_API_KEY generated from google's api and CLIENT_ID of the discord application), run main.py with discord client open to connect to YT-RPC
 

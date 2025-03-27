@@ -5,6 +5,7 @@ from selenium.webdriver.edge.options import Options
 from urllib.parse import urlparse, parse_qs
 from dotenv import load_dotenv
 from googleapiclient.discovery import build
+from pathlib import Path
 # import websockets
 # import asyncio
 # import json
@@ -12,7 +13,9 @@ import os
 load_dotenv()
 
 options = webdriver.EdgeOptions()
-options.add_extension("./private/crx.crx")
+BASE_DIR = Path(__file__).parent
+PRIVATE_FOLDER = BASE_DIR / "private"
+options.add_extension(f"{PRIVATE_FOLDER}/crx.crx")
 client_id = os.getenv('CLIENT_ID')
 ytApiKey = os.getenv("YOUTUBE_API_KEY")
 RPC = None
