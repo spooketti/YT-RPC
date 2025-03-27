@@ -64,6 +64,7 @@ def secretAlbumText(songID,notInSecretText):
     speicalAlbumSecret = {"GYlL6HjTQgk":"as long as you're happy, LW",#shiwasenara
                           "TxpVLoYDgwo":"what have you done to me?", #lovesick
                           "3hgabcFcp4A":"I JUST LOVE THE WAY YOU GOT ME FEEELIN", #feel it
+                          "jfrZS4-yBuI":"do you love me want me hate me i don't understand",
                           "OZYd9JxithE":"i know you're not sorry, why should you be?"} #8
 
     if(songID in speicalAlbumSecret):

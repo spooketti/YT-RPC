@@ -55,16 +55,16 @@ function removeAds() {
         }
 
         document.querySelectorAll(".ytmusic-popup-container").forEach(el => {
-            if (!findElementWithText(el, "View song credits")) {
+            if (!findElementWithText(el, ["View song credits","Produced by"])) {
                 el.remove()
             }
         });
     }, 50);
 }
 
-function findElementWithText(root, text) {
+function findElementWithText(root, texts) {
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-        acceptNode: (node) => node.nodeValue.trim() === text ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP
+        acceptNode: (node) => texts.includes(node.nodeValue.trim()) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP
     });
 
     const textNode = walker.nextNode();
