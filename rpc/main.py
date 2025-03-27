@@ -8,7 +8,7 @@ from googleapiclient.discovery import build
 from pathlib import Path
 # import websockets
 # import asyncio
-# import json
+import json
 import os
 load_dotenv()
 
@@ -16,6 +16,11 @@ options = webdriver.EdgeOptions()
 BASE_DIR = Path(__file__).parent
 PRIVATE_FOLDER = BASE_DIR / "private"
 options.add_extension(f"{PRIVATE_FOLDER}/crx.crx")
+
+customSongData = {}
+with open(BASE_DIR / "custom.json", 'r') as file:
+    customSongData = json.load(file)
+
 client_id = os.getenv('CLIENT_ID')
 ytApiKey = os.getenv("YOUTUBE_API_KEY")
 RPC = None
@@ -46,51 +51,17 @@ def getChannelPFP(channelID):
     response = request.execute()
     return response['items'][0]['snippet']['thumbnails']['default']['url']
 
-def specialSongImage(imageURL):
-    specialAlbumArt = {"https://i.ytimg.com/vi/NtVQkUdyapw/maxresdefault.jpg":"https://media.tenor.com/qnEtsD44mkQAAAAM/ricky-montgomery-montgomery-ricky.gif", #mr loverman
-                       "https://i.ytimg.com/vi/k7kzc3Nof08/maxresdefault.jpg":"https://media.tenor.com/ATdTvm5YQw0AAAAM/roblox-car-crash.gif", #i love you so
-                       "https://i.ytimg.com/vi/8KoyWSzcWqU/maxresdefault.jpg":"https://i.imgflip.com/9lkvtr.gif", #she wants me to be loved
-                       "https://i.ytimg.com/vi/6P-43ukn_l0/maxresdefault.jpg":"https://i.makeagif.com/media/2-28-2025/f5vwkz.gif", #cancer
-                       "https://i.ytimg.com/vi/gm-Y9idMMQ4/maxresdefault.jpg":"https://media.tenor.com/bZrOdhRikM0AAAAM/coldplay-a-rush-of-blood-to-the-head.gif", #the scientist
-                       "https://i.ytimg.com/vi/6LEs1yKXnb8/maxresdefault.jpg":"https://i.makeagif.com/media/3-07-2025/SleHgO.gif",#tek it
-                       "https://i.ytimg.com/vi/9r0EqOIELbs/maxresdefault.jpg":"https://i.makeagif.com/media/3-07-2025/Lmf04v.gif",#keshi blue even though u cna hardly tell
-                       "https://i.ytimg.com/vi/VfBswbj1824/maxresdefault.jpg":"https://media.tenor.com/VM10Cu2CKXEAAAAC/lagtrain-anime.gif", #lagtrain 
-                       "https://i.ytimg.com/vi/TxpVLoYDgwo/maxresdefault.jpg":"https://i.makeagif.com/media/3-07-2025/svlz_X.gif", #laufey lovesick
-                       "https://i.ytimg.com/vi/GYlL6HjTQgk/hqdefault.jpg":"https://c.tenor.com/2xTyEWuuWvUAAAAd/tenor.gif", #shiwasenara
-                        "https://i.ytimg.com/vi/aHmg0jsmNhg/maxresdefault.jpg":"https://images.genius.com/f83b0048db86544e0eb6e45e8551b02e.382x382x249.gif", #vampire
-                        "https://i.ytimg.com/vi/3hgabcFcp4A/maxresdefault.jpg":"https://media1.tenor.com/m/NgWUl-LbntoAAAAd/invincible-fly.gif", #feel it
-                        "https://i.ytimg.com/vi/HFVlEft9uEs/maxresdefault.jpg":"https://media1.tenor.com/m/o_g7vMhH_BwAAAAd/jam-car.gif", #that one song harrison wanted
-                        "https://i.ytimg.com/vi/dhd_wb7kJB4/hqdefault.jpg":"https://i.makeagif.com/media/3-19-2025/SecNmN.gif"} #kimi no taion
-    if(imageURL in specialAlbumArt):
-        return specialAlbumArt[imageURL]
-    return imageURL
+def specialSongImage(songID,imageURL):
+    return customSongData.get(songID, {}).get("albumArt", "") or imageURL
 
 def secretAlbumText(songID,notInSecretText):
-    speicalAlbumSecret = {"GYlL6HjTQgk":"as long as you're happy, LW",#shiwasenara
-                          "TxpVLoYDgwo":"what have you done to me?", #lovesick
-                          "3hgabcFcp4A":"I JUST LOVE THE WAY YOU GOT ME FEEELIN", #feel it
-                          "jfrZS4-yBuI":"do you love me want me hate me i don't understand", #1 step forward 3 steps back
-                          "rDwWbW94GzQ":"i'm still growing up into the one you can call your love", #ultimately
-                          "OZYd9JxithE":"i know you're not sorry, why should you be?"} #8
-
-    if(songID in speicalAlbumSecret):
-        return speicalAlbumSecret[songID]
-    return notInSecretText
+    return customSongData.get(songID, {}).get("albumText", "") or notInSecretText
 
 def artistOverride(songID,artist):
-    override = {"GYlL6HjTQgk":"Goro Majima",#shiwasenara
-                "dhd_wb7kJB4":"Kuwagata-P"} #kimi no taion
-
-    if(songID in override):
-        return override[songID]
-    return artist
+    return customSongData.get(songID, {}).get("artist", "") or artist
     
 def titleOverride(songID,title):
-    overrideTitle = {"dhd_wb7kJB4":"Kimi no Taion"} #kimi no taion
-
-    if(songID in overrideTitle):
-        return overrideTitle[songID]
-    return title
+    return customSongData.get(songID, {}).get("title", "") or title
 
 wasPaused = False #i ngl have 0 clue why the wasPaused system even works so if anyone could tell me how
 #i would aprpeicate this: this litearlly should nto work but it does
@@ -119,9 +90,9 @@ while True:
                 songID = getVideoId(driver.current_url)
                 data = getVideoData(songID)
                 if("maxres" in data['items'][0]['snippet']['thumbnails']):
-                    imageURL = specialSongImage(data['items'][0]['snippet']['thumbnails']['maxres']['url'])
+                    imageURL = specialSongImage(songID,data['items'][0]['snippet']['thumbnails']['maxres']['url'])
                 else:
-                    imageURL = specialSongImage(data['items'][0]['snippet']['thumbnails']['high']['url'])
+                    imageURL = specialSongImage(songID,data['items'][0]['snippet']['thumbnails']['high']['url'])
                 artist = data['items'][0]['snippet']['channelTitle']
                 artist = artist.replace(" - Topic", "")
                 artist = artistOverride(songID,artist)
