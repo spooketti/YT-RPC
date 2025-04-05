@@ -28,7 +28,7 @@ workingOnBlockedWifi = False
 if(not workingOnBlockedWifi):
     RPC = Presence(client_id)
     RPC.connect()
-driver = webdriver.Edge(options=options) # i use edge cause it guilt tripped me into using it
+driver = webdriver.Chrome(options=options) # i use edge cause it guilt tripped me into using it (not true anymore)
 driver.get("https://music.youtube.com")
 youtube = build("youtube","v3",developerKey=ytApiKey)
 lasturl = ""
