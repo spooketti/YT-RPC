@@ -12,13 +12,13 @@ import json
 import os
 load_dotenv()
 
-options = webdriver.EdgeOptions()
+options = webdriver.ChromeOptions()
 BASE_DIR = Path(__file__).parent
 PRIVATE_FOLDER = BASE_DIR / "private"
 options.add_extension(f"{PRIVATE_FOLDER}/crx.crx")
 
 customSongData = {}
-with open(BASE_DIR / "custom.json", 'r') as file:
+with open(BASE_DIR / "custom.json", 'r',encoding="utf-8") as file:
     customSongData = json.load(file)
 
 client_id = os.getenv('CLIENT_ID')
