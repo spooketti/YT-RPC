@@ -14,14 +14,15 @@ load_dotenv()
 
 options = webdriver.ChromeOptions()
 BASE_DIR = Path(__file__).parent
-PRIVATE_FOLDER = BASE_DIR / "private"
-options.add_extension(f"{PRIVATE_FOLDER}/crx.crx")
+options.add_extension(BASE_DIR / "crx.crx")
 
 customSongData = {}
 with open(BASE_DIR / "custom.json", 'r',encoding="utf-8") as file:
     customSongData = json.load(file)
 
-client_id = os.getenv('CLIENT_ID')
+client_id = os.getenv('CLIENT_ID') #i only have it this way for a friend to make their git pull life easy / please do not add a client id .env property (please use my id)
+if(not client_id):
+    client_id = "1099470938891890689"
 ytApiKey = os.getenv("YOUTUBE_API_KEY")
 RPC = None
 workingOnBlockedWifi = False
