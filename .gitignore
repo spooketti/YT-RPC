@@ -1,6 +1,3 @@
 .env
 private
 __pycache__
-zCrxBackup
-#zCrxBackup is something just for me cause i have to repack the extension and in the case the packed one is broken i can go back
-#(you don't actually need to have this folder)
