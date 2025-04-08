@@ -23,6 +23,7 @@ with open(BASE_DIR / "custom.json", 'r',encoding="utf-8") as file:
 client_id = os.getenv('CLIENT_ID') #i only have it this way for a friend to make their git pull life easy / please do not add a client id .env property (please use my id)
 if(not client_id):
     client_id = "1099470938891890689"
+    
 ytApiKey = os.getenv("YOUTUBE_API_KEY")
 RPC = None
 workingOnBlockedWifi = False
@@ -66,7 +67,13 @@ def titleOverride(songID,title):
 
 wasPaused = False #i ngl have 0 clue why the wasPaused system even works so if anyone could tell me how
 #i would aprpeicate this: this litearlly should nto work but it does
+
+kateMode = bool(os.getenv("KATE_MODE")) #ignore this: for a friend
+
 while True:
+            if(kateMode):
+                buttonlist=[{"label":"Listen To This Song","url":driver.current_url},
+                    {"label":"Made By Spooketti","url":"https://github.com/spooketti/YT-RPC"}]
             if(lasturl==driver.current_url and not wasPaused):
                 if(driver.execute_script("let video = document.querySelector('video'); return video ? video.paused : null;")):
                     RPC.update(large_image="  ",
