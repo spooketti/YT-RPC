@@ -55,7 +55,8 @@ function removeAds() {
         }
 
         document.querySelectorAll(".ytmusic-popup-container").forEach(el => {
-            if (!findElementWithText(el, ["View song credits","Produced by"])) {
+            let parentToCheck = el.closest(".ytmusic-popup-container")
+            if (!findElementWithText(parentToCheck, ["View song credits","Produced by"])) {
                 el.remove()
             }
         });
