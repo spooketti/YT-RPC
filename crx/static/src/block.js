@@ -54,20 +54,20 @@ function removeAds() {
             }
         }
 
-        document.querySelectorAll(".ytmusic-popup-container").forEach(el => {
-            let parentToCheck = el.closest(".ytmusic-popup-container")
-            if (!findElementWithText(parentToCheck, ["View song credits","Produced by"])) {
-                el.remove()
-            }
-        });
+        // document.querySelectorAll(".ytmusic-popup-container").forEach(el => {
+        //     let parentToCheck = el.closest(".ytmusic-popup-container")
+        //     if (!findElementWithText(parentToCheck, ["View song credits","Produced by"])) {
+        //         el.remove()
+        //     }
+        // });
     }, 50);
 }
 
-function findElementWithText(root, texts) {
-    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-        acceptNode: (node) => texts.includes(node.nodeValue.trim()) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP
-    });
+// function findElementWithText(root, texts) {
+//     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+//         acceptNode: (node) => texts.includes(node.nodeValue.trim()) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP
+//     });
 
-    const textNode = walker.nextNode();
-    return textNode ? textNode.parentElement : null;
-}
+//     const textNode = walker.nextNode();
+//     return textNode ? textNode.parentElement : null;
+// }
