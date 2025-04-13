@@ -20,14 +20,11 @@ function removeAds() {
             if (adLoop < 10) {
                 document.querySelector('.ytp-ad-button-icon')?.click();
                 document.querySelector('[label="Block ad"]')?.click();
-                document.querySelector('.Eddif [label="CONTINUE"] button')?.click();
+                // document.querySelector('.Eddif [label="CONTINUE"] button')?.click();
                 document.querySelector('.zBmRhe-Bz112c')?.click();
             } else {
                 video?.play();
             }
-
-            let popupContainer = document.querySelector('body > ytd-app > ytd-popup-container > tp-yt-paper-dialog');
-            if (popupContainer?.style.display === "") popupContainer.style.display = 'none';
 
             let skipButtons = [
                 '.ytp-ad-skip-button-container', '.ytp-ad-skip-button-modern',
@@ -53,12 +50,12 @@ function removeAds() {
                 if (video) videoPlayback = video.playbackRate;
             }
         }
-        try {
-            document.querySelectorAll("yt-about-this-ad-renderer")[0].parentElement.parentElement.remove()
-        }
-        catch {
-            //honestly nothing cause i prefer not to flood the console legit only reason i wrote this
-        }
+        // try {
+        //     document.querySelectorAll("yt-about-this-ad-renderer")[0].parentElement.parentElement.remove()
+        // }
+        // catch {
+        //     //honestly nothing cause i prefer not to flood the console legit only reason i wrote this
+        // }
 
     }, 50);
 }
