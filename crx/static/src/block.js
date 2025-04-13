@@ -5,48 +5,16 @@ let isAdFound = false;
 let adLoop = 0;
 
 removeAds();
-let idleTimeout;
-let clickInterval;
-const idleTimeLimit = 4000;
-const clickRate = 100; 
-const box = document.createElement("div");
-box.id = "sus"
-document.body.appendChild(box)
 
-function startClicking() {
-  if (!clickInterval) {
-    clickInterval = setInterval(() => {
-      box.click();
-    }, clickRate);
-  }
-}
-
-function stopClicking() {
-  if (clickInterval) {
-    clearInterval(clickInterval);
-    clickInterval = null;
-  }
-}
-
-function resetIdleTimer() {
-  clearTimeout(idleTimeout);
-  stopClicking();
-  idleTimeout = setTimeout(() => {
-    startClicking();
-  }, idleTimeLimit);
-}
-
-['mousemove', 'keydown', 'mousedown', 'touchstart'].forEach(event => {
-  window.addEventListener(event, resetIdleTimer);
-});
-
-resetIdleTimer();
 
 
 function removeAds() {
     let videoPlayback = 1;
 
     setInterval(() => {
+        document.querySelectorAll("iron-media-query").forEach(el=>{el.remove()})
+        document.querySelectorAll("tp-yt-paper-dialog").forEach(el=>{el.remove()})
+        
         let video = document.querySelector('video');
         let ad = document.querySelector('.ad-showing');
 
