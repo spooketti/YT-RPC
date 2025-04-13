@@ -53,13 +53,13 @@ function removeAds() {
                 if (video) videoPlayback = video.playbackRate;
             }
         }
+        try {
+            document.querySelectorAll("yt-about-this-ad-renderer")[0].parentElement.parentElement.remove()
+        }
+        catch {
+            //honestly nothing cause i prefer not to flood the console legit only reason i wrote this
+        }
 
-        // document.querySelectorAll(".ytmusic-popup-container").forEach(el => {
-        //     let parentToCheck = el.closest(".ytmusic-popup-container")
-        //     if (!findElementWithText(parentToCheck, ["View song credits","Produced by"])) {
-        //         el.remove()
-        //     }
-        // });
     }, 50);
 }
 
