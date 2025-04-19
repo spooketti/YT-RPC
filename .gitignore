@@ -1,3 +1,4 @@
 .env
 private
 __pycache__
+venv
