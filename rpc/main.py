@@ -1,7 +1,7 @@
 from pypresence import Presence
 import time
 from selenium import webdriver
-from selenium.webdriver.edge.options import Options
+# from selenium.webdriver.edge.options import Options
 from urllib.parse import urlparse, parse_qs
 from dotenv import load_dotenv
 from googleapiclient.discovery import build
@@ -14,7 +14,7 @@ load_dotenv()
 
 options = webdriver.ChromeOptions()
 BASE_DIR = Path(__file__).parent
-options.add_extension(BASE_DIR / "crx.crx")
+options.add_extension(str(BASE_DIR / "crx.crx"))
 
 customSongData = {}
 with open(BASE_DIR / "custom.json", 'r',encoding="utf-8") as file:
