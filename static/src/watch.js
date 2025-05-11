@@ -74,6 +74,7 @@ function viewerAcceptServer(messageData) {
 
 async function watch() {
     const peer = new RTCPeerConnection(servers);
+    peer.addTransceiver("video", {direction:"recvonly"})
     peer.addTransceiver("audio", { direction: "recvonly" });
     const offer = await peer.createOffer();
     await peer.setLocalDescription(offer);
