@@ -130,4 +130,5 @@ while True:
                     # party_id="YT-RPC"
                     )
             time.sleep(15) # Can only update rich presence every 15 seconds
+            #honest to god i need to commit something to save myself in csa im sorry
             
