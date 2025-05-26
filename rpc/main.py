@@ -117,6 +117,9 @@ while True:
                 time.sleep(5)
                 continue
             if(not workingOnBlockedWifi):
+                currentSongTime =  driver.execute_script(
+                    "return document.querySelector('video').currentTime"
+                )
                 RPC.update(
 
                     large_image=imageURL,
@@ -126,6 +129,7 @@ while True:
                     small_text=artist,
                     large_text=largeText,
                     buttons=buttonlist,
+                    start=(int)(time.time() - currentSongTime)
                     # party_size=[0,5], #listen together party size,
                     # party_id="YT-RPC"
                     )
