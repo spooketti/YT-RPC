@@ -112,7 +112,7 @@ while True:
         if len(title) <= 2:
             title += "  "
         title = titleOverride(songID, title)
-        lastTitle = f"Last heard: {title}"
+        lastTitle = f"Last Heard: {title}"
 
         largeText = secretAlbumText(songID, title)
         channelPFP = getChannelPFP(data['items'][0]['snippet']['channelId'])
