@@ -30,10 +30,10 @@ if(not client_id):
     
 ytApiKey = os.getenv("YOUTUBE_API_KEY")
 RPC = None
-workingOnBlockedWifi = False
-if(not workingOnBlockedWifi):
-    RPC = Presence(client_id)
-    RPC.connect()
+# workingOnBlockedWifi = False
+# if(not workingOnBlockedWifi):
+RPC = Presence(client_id)
+RPC.connect()
 driver = webdriver.Chrome(options=options) # i use edge cause it guilt tripped me into using it (not true anymore)
 driver.get("https://music.youtube.com")
 youtube = build("youtube","v3",developerKey=ytApiKey)
@@ -70,69 +70,68 @@ def artistOverride(songID,artist):
 def titleOverride(songID,title):
     return customSongData.get(songID, {}).get("title", "") or title
 
-wasPaused = False #i ngl have 0 clue why the wasPaused system even works so if anyone could tell me how
-#i would aprpeicate this: this litearlly should nto work but it does
-
+wasPaused = False
+lastTitle = "  "
 while True:
-            if(lasturl==driver.current_url and not wasPaused):
-                if(driver.execute_script("let video = document.querySelector('video'); return video ? video.paused : null;")):
-                    RPC.update(large_image="  ",
-                    small_image="  ",
-                    state="  ",
-                    details="Currently Paused",
-                    small_text="  ",
-                    large_text="  ",
-                    buttons=buttonlist,)
-                    wasPaused = True
-                    time.sleep(10)
-                time.sleep(5)
-                continue
-            wasPaused = False
-            lasturl = driver.current_url
-            imageURL=""
-            artist=""
-            title=""
-            channelPFP = ""
-            largeText = ""
-            try:
-                songID = getVideoId(driver.current_url)
-                data = getVideoData(songID)
-                if("maxres" in data['items'][0]['snippet']['thumbnails']):
-                    imageURL = specialSongImage(songID,data['items'][0]['snippet']['thumbnails']['maxres']['url'])
-                else:
-                    imageURL = specialSongImage(songID,data['items'][0]['snippet']['thumbnails']['high']['url'])
-                artist = data['items'][0]['snippet']['channelTitle']
-                artist = artist.replace(" - Topic", "")
-                artist = artistOverride(songID,artist)
-                title = data['items'][0]['snippet']['title']
-                if(len(title) <= 2):
-                    title += "  "
-                title = titleOverride(songID,title)
-                largeText = secretAlbumText(songID,title)
-                channelPFP = getChannelPFP(data['items'][0]['snippet']['channelId'])
-                # await ws.send(json.dumps({"context":"artUpdate","title":title,"artist":artist,"imageURL":imageURL}))
-                
-            except Exception as e:
-                # print(e)
-                time.sleep(5)
-                continue
-            if(not workingOnBlockedWifi):
-                currentSongTime =  driver.execute_script(
-                    "return document.querySelector('video').currentTime"
-                )
+    try:
+        isPaused = driver.execute_script("return document.querySelector('video').paused;")
+        
+        if isPaused:
+            if not wasPaused:
                 RPC.update(
-
-                    large_image=imageURL,
-                    small_image=channelPFP,
-                    state=artist,
-                    details=title,
-                    small_text=artist,
-                    large_text=largeText,
-                    buttons=buttonlist,
-                    start=(int)(time.time() - currentSongTime)
-                    # party_size=[0,5], #listen together party size,
-                    # party_id="YT-RPC"
+                        details="Currently Paused",
+                        large_image="yt_icon",  
+                        small_image="pause",   
+                        state=lastTitle,
+                        buttons=buttonlist,
+                        # start=time.time()
                     )
-            time.sleep(15) # Can only update rich presence every 15 seconds
-            #honest to god i need to commit something to save myself in csa im sorry
-            
+                wasPaused = True
+            time.sleep(5)
+            continue
+
+        # Only runs if NOT paused
+        if lasturl == driver.current_url and not wasPaused:
+            time.sleep(5)
+            continue
+
+        wasPaused = False  # Reset if no longer paused
+        lasturl = driver.current_url
+
+        songID = getVideoId(driver.current_url)
+        data = getVideoData(songID)
+
+        thumbnails = data['items'][0]['snippet']['thumbnails']
+        imageURL = thumbnails.get('maxres', thumbnails.get('high'))['url']
+        imageURL = specialSongImage(songID, imageURL)
+
+        artist = data['items'][0]['snippet']['channelTitle'].replace(" - Topic", "")
+        artist = artistOverride(songID, artist)
+
+        title = data['items'][0]['snippet']['title']
+        if len(title) <= 2:
+            title += "  "
+        title = titleOverride(songID, title)
+        lastTitle = f"Last heard: {title}"
+
+        largeText = secretAlbumText(songID, title)
+        channelPFP = getChannelPFP(data['items'][0]['snippet']['channelId'])
+
+        currentSongTime = driver.execute_script("return document.querySelector('video').currentTime")
+        RPC.update(
+                large_image=imageURL,
+                small_image=channelPFP,
+                state=artist,
+                details=title,
+                small_text=artist,
+                large_text=largeText,
+                buttons=buttonlist,
+                start=int(time.time() - currentSongTime)
+            )
+
+    except Exception as e:
+        print(f"Error: {e}")
+        time.sleep(5)
+        continue
+
+    time.sleep(15)
