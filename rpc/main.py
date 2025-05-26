@@ -17,8 +17,12 @@ BASE_DIR = Path(__file__).parent
 options.add_extension(str(BASE_DIR / "crx.crx"))
 
 customSongData = {}
+customButtonData = []
 with open(BASE_DIR / "custom.json", 'r',encoding="utf-8") as file:
     customSongData = json.load(file)
+
+with open(BASE_DIR / "button.json", 'r',encoding="utf-8") as f:
+    customButtonData = json.load(f)
 
 client_id = os.getenv('CLIENT_ID') #i only have it this way for a friend to make their git pull life easy / please do not add a client id .env property (please use my id)
 if(not client_id):
@@ -34,8 +38,9 @@ driver = webdriver.Chrome(options=options) # i use edge cause it guilt tripped m
 driver.get("https://music.youtube.com")
 youtube = build("youtube","v3",developerKey=ytApiKey)
 lasturl = ""
-buttonlist=[{"label":"Listen Together","url":"https://spooketti.github.io/YT-RPC/"},
-                    {"label":"Made By Spooketti","url":"https://github.com/spooketti/YT-RPC"}]
+# buttonlist=[{"label":"Listen Together","url":"https://spooketti.github.io/YT-RPC/"},
+#                     {"label":"Made By Spooketti","url":"https://github.com/spooketti/YT-RPC"}]
+buttonlist = customButtonData
 
 def getVideoData(vidId):
     request = youtube.videos().list(part="snippet", id=vidId)
