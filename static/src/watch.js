@@ -55,7 +55,7 @@ function viewerAcceptServer(messageData) {
 
     globalPeer.ontrack = (event) => {
         console.log("Track received:", event.track.kind);
-        document.getElementById("audioElement").srcObject = event.streams[0];
+        document.getElementById("videoElement").srcObject = event.streams[0];
         const button = document.getElementById("ConnectButton");
         if (button) button.remove();
     };
