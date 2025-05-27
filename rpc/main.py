@@ -12,7 +12,8 @@ import json
 import os
 load_dotenv()
 
-options = webdriver.ChromeOptions()
+# options = webdriver.ChromeOptions()
+options = webdriver.EdgeOptions()
 BASE_DIR = Path(__file__).parent
 options.add_extension(str(BASE_DIR / "crx.crx"))
 
@@ -34,7 +35,7 @@ RPC = None
 # if(not workingOnBlockedWifi):
 RPC = Presence(client_id)
 RPC.connect()
-driver = webdriver.Chrome(options=options) # i use edge cause it guilt tripped me into using it (not true anymore)
+driver = webdriver.Edge(options=options) # i use edge cause it guilt tripped me into using it (not true anymore)
 driver.get("https://music.youtube.com")
 youtube = build("youtube","v3",developerKey=ytApiKey)
 lasturl = ""
