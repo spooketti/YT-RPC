@@ -52,12 +52,19 @@ function viewerAcceptServer(messageData) {
         type: "answer",
         sdp: messageData["sdp"]
     });
-    
+
+    globalPeer.ontrack = (event) => {
+        console.log("Track received:", event.track.kind);
+        document.getElementById("audioElement").srcObject = event.streams[0];
+        const button = document.getElementById("ConnectButton");
+        if (button) button.remove();
+    };
+
     if (globalPeer.signalingState === "stable") {
         console.warn("Skipping setRemoteDescription because connection is already stable.");
         return;
     }
-    
+
     globalPeer.setRemoteDescription(remotedesc)
         .then(() => {
             console.log("Remote description set successfully.");
@@ -65,11 +72,6 @@ function viewerAcceptServer(messageData) {
         .catch(error => {
             console.error("Failed to set remote description:", error);
         });
-    
-    globalPeer.ontrack = (event) => {
-        document.getElementById("audioElement").srcObject = event.streams[0];
-        document.getElementById("ConnectButton").remove()
-    };
 }
 
 async function watch() {

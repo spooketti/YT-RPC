@@ -63,7 +63,10 @@ async function viewerOfferServer(messageData) {
     await peer.setRemoteDescription(remotedesc);
     videoStreamGlobal.getTracks().forEach(track => peer.addTrack(track, videoStreamGlobal));
     const answer = await peer.createAnswer();
-    answer.sdp.replace('useinbandfec=1', 'useinbandfec=1; stereo=1; maxaveragebitrate=510000')
+    answer.sdp = answer.sdp.replace(
+  'useinbandfec=1',
+  'useinbandfec=1; stereo=1; maxaveragebitrate=510000'
+);
     await peer.setLocalDescription(answer);
     
     sendMessage({
@@ -92,7 +95,7 @@ async function chromeToGetMediaHandshake() {
 }
 
 async function startBroadcast() {
-    videoStreamGlobal = await navigator.mediaDevices.getDisplayMedia({ audio: {
+    videoStreamGlobal = await navigator.mediaDevices.getDisplayMedia({video:true, audio: {
         autoGainControl: false,
         channelCount: 2,
         echoCancellation: false,
