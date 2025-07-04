@@ -74,13 +74,14 @@ def titleOverride(songID,title):
 wasPaused = False
 lastTitle = "  "
 
-def radioAuraLossPrevention(albumTitle,songTitle): #returning true means that the album title has an aura loss and must be censored
-    if albumTitle.endswith("Radio"):
-        parts = albumTitle.rsplit(" ", 1)
-        if len(parts) > 1:
-            everythingBeforeRadio = parts[0]
-            return songTitle in everythingBeforeRadio
-    return False
+# def radioAuraLossPrevention(albumTitle,songTitle): #returning true means that the album title has an aura loss and must be censored
+#     if albumTitle.endswith("Radio"):
+#         parts = albumTitle.rsplit(" ", 1)
+#         if len(parts) > 1:
+#             everythingBeforeRadio = parts[0]
+#             return songTitle in everythingBeforeRadio
+#     return False
+
 
 while True:
     try:
@@ -129,7 +130,7 @@ while True:
         try:
             largeText = driver.execute_script("const element = document.evaluate(\"//yt-formatted-string[text()='Playing from']\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue; return element.nextElementSibling.textContent;")
             largeText = secretAlbumText(songID, largeText)
-            if radioAuraLossPrevention(largeText,rawTitle): #prevention of aura loss
+            if(largeText.endswith("Radio")):# if radioAuraLossPrevention(largeText,rawTitle): #prevention of aura loss
                 largeText = title
         except:
             largeText = secretAlbumText(songID, title)
