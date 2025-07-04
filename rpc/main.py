@@ -73,6 +73,15 @@ def titleOverride(songID,title):
 
 wasPaused = False
 lastTitle = "  "
+
+def radioAuraLossPrevention(albumTitle,songTitle): #returning true means that the album title has an aura loss and must be censored
+    if albumTitle.endswith("Radio"):
+        parts = albumTitle.rsplit(" ", 1)
+        if len(parts) > 1:
+            everythingBeforeRadio = parts[0]
+            return songTitle in everythingBeforeRadio
+    return False
+
 while True:
     try:
         isPaused = driver.execute_script("return document.querySelector('video').paused;")
@@ -91,12 +100,11 @@ while True:
             time.sleep(5)
             continue
 
-        # Only runs if NOT paused
         if lasturl == driver.current_url and not wasPaused:
             time.sleep(5)
             continue
 
-        wasPaused = False  # Reset if no longer paused
+        wasPaused = False 
         lasturl = driver.current_url
 
         songID = getVideoId(driver.current_url)
@@ -111,7 +119,7 @@ while True:
         artist = artistOverride(songID, artist)
 
         title = data['items'][0]['snippet']['title']
-        rawTitle = title #needed for aura loss prevention
+        rawTitle = title #needed for aura loss prevention 
         if len(title) <= 2:
             title += "  "
         title = titleOverride(songID, title)
@@ -121,7 +129,7 @@ while True:
         try:
             largeText = driver.execute_script("const element = document.evaluate(\"//yt-formatted-string[text()='Playing from']\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue; return element.nextElementSibling.textContent;")
             largeText = secretAlbumText(songID, largeText)
-            if largeText == f"{rawTitle} Radio": #prevention of aura loss
+            if radioAuraLossPrevention(largeText,rawTitle): #prevention of aura loss
                 largeText = title
         except:
             largeText = secretAlbumText(songID, title)
