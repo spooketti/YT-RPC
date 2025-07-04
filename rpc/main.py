@@ -110,12 +110,20 @@ while True:
         artist = artistOverride(songID, artist)
 
         title = data['items'][0]['snippet']['title']
+        rawTitle = title #needed for aura loss prevention
         if len(title) <= 2:
             title += "  "
         title = titleOverride(songID, title)
         lastTitle = f"Last Heard: {title}"
 
-        largeText = secretAlbumText(songID, title)
+        largeText = title
+        try:
+            largeText = driver.execute_script("const element = document.evaluate(\"//yt-formatted-string[text()='Playing from']\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue; return element.nextElementSibling.textContent;")
+            largeText = secretAlbumText(songID, largeText)
+            if largeText == f"{rawTitle} Radio": #prevention of aura loss
+                largeText = title
+        except:
+            largeText = secretAlbumText(songID, title)
         channelPFP = getChannelPFP(data['items'][0]['snippet']['channelId'])
 
         currentSongTime = driver.execute_script("return document.querySelector('video').currentTime")
