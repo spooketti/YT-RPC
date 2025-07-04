@@ -107,6 +107,7 @@ while True:
         imageURL = specialSongImage(songID, imageURL)
 
         artist = data['items'][0]['snippet']['channelTitle'].replace(" - Topic", "")
+        artist = artist.removesuffix("VEVO")
         artist = artistOverride(songID, artist)
 
         title = data['items'][0]['snippet']['title']
