@@ -10,6 +10,7 @@ from pathlib import Path
 # import asyncio
 import json
 import os
+import random
 load_dotenv()
 
 # options = webdriver.ChromeOptions()
@@ -60,6 +61,8 @@ def getChannelPFP(channelID):
     return response['items'][0]['snippet']['thumbnails']['default']['url']
 
 def specialSongImage(songID,imageURL):
+    if random.randint(1,5) == 2 and songID == "sqK-jh4TDXo":
+        return "https://c.tenor.com/Bef9g3H_63sAAAAd/tenor.gif" #1% teto pear chance
     return customSongData.get(songID, {}).get("albumArt", "") or imageURL
 
 def secretAlbumText(songID,notInSecretText):
