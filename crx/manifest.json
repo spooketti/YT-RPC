@@ -15,6 +15,9 @@
       "default_popup": "popup.html",
       "default_icon": "static/img/YTRPC-Icon.png"
   },
+  "background": {
+    "service_worker": "static/src/chat.js"
+  },
   "content_scripts": [
       {
           "matches": [
