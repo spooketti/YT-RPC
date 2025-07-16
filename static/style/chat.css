@@ -1,6 +1,89 @@
 #chatLabel
 {
     height:50px;
-    background-color: green;
+    background-color: rgb(69 45 76);
     width: 100%;
+}
+
+#chatBody
+{
+    position: relative;
+     height:50px;
+    background-color: #2b212b;
+    width: 100%;
+    height: calc(100% - 210px); /*why is this 210px? who knows*/
+    overflow: auto;
+}
+
+#chatControl
+{
+    position:absolute;
+    height:100px;
+    bottom: 61px; /*why this is 61px? who knows*/
+    background-color: rgb(60, 33, 68);
+    width: 100%;
+}
+
+.chatMessage
+{
+    font-family: "Noto Music", serif;
+    gap:5px;
+    display: flex;
+    overflow-wrap: break-word;
+    flex-wrap: wrap;
+min-width: 0;
+transition: all .25s;
+}
+
+.chatMessage:hover
+{
+    filter:brightness(75%);
+    background-color: #2b212b;
+}
+
+.chatUN
+{
+    color:white;
+}
+
+.chatMSG
+{
+    color:white;
+    overflow: auto;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f0e6ff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #9b59b6;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8e44ad;
+}
+
+#chatbox
+{
+    position: absolute;
+    left: 8px;
+    top: 18%;
+    width: 96%;
+    height: 50%;
+    resize: none;
+    font-family: "Noto Music", sans-serif;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    background-color: #653e65;
+}
+
+#chatbox::placeholder {
+  color: rgb(255, 234, 0); /* Set the desired color */
 }
