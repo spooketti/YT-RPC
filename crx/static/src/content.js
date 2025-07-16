@@ -1,4 +1,17 @@
 ws = new WebSocket("wss://yt-rpc.onrender.com")
+let popupPort = null;
+
+chrome.runtime.onConnect.addListener((port) => {
+  if (port.name === "YT-RPC-chatport") {
+    popupPort = port;
+  }
+});
+
+function sendToPopup() {
+  if (popupPort) {
+    popupPort.postMessage({ payload: "chat" });
+  }
+}
 
 ws.onopen = () => {
     console.log("YT-RPC: Connected to Websocket")
