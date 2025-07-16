@@ -1,46 +1,36 @@
 let chatbox = document.getElementById("chatbox")
 let isShiftDown = false;
+let username = document.getElementById("usernameField")
 
-document.addEventListener("keydown",function(e)
-{
-    switch(e.key)
-    {
+document.addEventListener("keydown", function (e) {
+    switch (e.key) {
         case "Shift":
             isShiftDown = true;
-        break;
+            break;
 
         case "Enter":
-            if(!isShiftDown)
-            {
+            if (!isShiftDown) {
                 e.preventDefault()
                 postMessage()
             }
-        break;
+            break;
     }
 })
 
-document.addEventListener("keyup",function(e)
-{
-    switch(e.key)
-    {
+document.addEventListener("keyup", function (e) {
+    switch (e.key) {
         case "Shift":
             isShiftDown = false;
-        break;
+            break;
     }
 })
 
-function postMessage()
-{
-    // if(!ServerChannel)
-    // {
-    //     return
-    // }
-    // let payload = 
-    // {
-    //     "content":chatbox.value,
-    //     "channel":ServerChannel,
-    //     "image":null
-    // }
-        //  socket.emit("sendServerMessage",payload) //real time messaging
-         chatbox.value = "";
+function postMessage() {
+    let payload = { 
+        context: "chatCTS", 
+        username: username.value,
+        message: chatbox.value 
+    }
+    socket.sendMessage(payload); //Client to Server
+    chatbox.value = "";
 }

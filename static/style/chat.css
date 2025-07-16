@@ -3,6 +3,11 @@
     height:50px;
     background-color: rgb(69 45 76);
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color:yellow;
+    font-family: "Noto Music", serif;
 }
 
 #chatBody
@@ -85,5 +90,19 @@ transition: all .25s;
 }
 
 #chatbox::placeholder {
-  color: rgb(255, 234, 0); /* Set the desired color */
+  color: rgb(255, 234, 0); 
+}
+
+#usernameField
+{
+    resize: none;
+    font-family: "Noto Music", sans-serif;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    background-color: #653e65;
+}
+
+#usernameField::placeholder {
+  color: black;
 }
