@@ -42,7 +42,7 @@ socket.onmessage = async function (event) {
             messageWrapper.classList.add("chatMessage")
             let chatUN = document.createElement("span")
             chatUN.classList.add("chatUN")
-            chatUN.textContent = messageData["username"]
+            chatUN.textContent = `${messageData["username"]}:`
             chatUN.style.color = messageData["color"]
             let chatMSG = document.createElement("span")
             chatMSG.classList.add("chatMSG")

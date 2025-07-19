@@ -62,13 +62,19 @@ def uuidColor(uid:str):
     realUID = uuid.UUID(uid)
     return f"#{realUID.hex[:6]}"
 
-async def recieveChat(ws,data,uid):
+async def recieveChat(ws,data,clientUID):
+    message = data.get("message")
+    if not message.strip() or len(message) == 0:
+        return
+    username = data.get("username")
+    if not username.strip() or len(username) == 0:
+        username = f"Guest {clientUID[:4]}"
     for uid,ws in connected_clients.items():
         payload = {
         "username":data.get("username"),
         "message": data.get("message"),
         "context":"chatSTC",
-        "color":uuidColor(uid)
+        "color":uuidColor(clientUID)
     }
         await ws.send(json.dumps(payload))
 
