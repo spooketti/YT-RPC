@@ -58,13 +58,29 @@ async def BroadcastReady(ws,data,uid):
     global broadcasterID
     broadcasterID = uid
 
+def uuidColor(uid:str): 
+    realUID = uuid.UUID(uid)
+    return f"#{realUID.hex[:6]}"
+
+async def recieveChat(ws,data,uid):
+    for uid,ws in connected_clients.items():
+        payload = {
+        "username":data.get("username"),
+        "message": data.get("mesage"),
+        "context":"chatSTC",
+        "color":uuidColor(uid)
+    }
+        await ws.send(json.dumps(payload))
+
 options = {
            "BroadcastReady" : BroadcastReady,
            "viewerOfferClient" : viewerOfferClient,
            "viewerAcceptClient" : viewerAcceptClient,
            "iceToStreamerClient" : iceToStreamerClient,
            "iceToViewerClient" : iceToViewerClient,
+           "chatCTS": recieveChat
 }
+
 
 async def handle_websocket(websocket, path):
     global broadcasterID

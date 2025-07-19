@@ -36,6 +36,21 @@ socket.onmessage = async function (event) {
             document.getElementById("songTitle").innerText = messageData["title"]
             document.getElementById("songArtist").innerText = messageData["artist"]
         break;
+        case "chatSTC":
+            let chatbody = document.getElementById("chatBody")
+            let messageWrapper = document.createElement("div")
+            messageWrapper.classList.add("chatMessage")
+            let chatUN = document.createElement("span")
+            chatUN.classList.add("chatUN")
+            chatUN.textContent = messageData["username"]
+            chatUN.style.color = messageData["color"]
+            let chatMSG = document.createElement("span")
+            chatMSG.classList.add("chatMSG")
+            chatMSG.textContent = messageData["message"]
+            messageWrapper.appendChild(chatUN)
+            messageWrapper.appendChild(chatMSG)
+            chatbody.appendChild(messageWrapper)
+            break;
     }
 };
 
