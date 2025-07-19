@@ -71,8 +71,8 @@ async def recieveChat(ws,data,clientUID):
         username = f"Guest {clientUID[:4]}"
     for uid,ws in connected_clients.items():
         payload = {
-        "username":data.get("username"),
-        "message": data.get("message"),
+        "username":username,
+        "message": message,
         "context":"chatSTC",
         "color":uuidColor(clientUID)
     }
