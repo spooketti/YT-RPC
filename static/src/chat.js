@@ -31,6 +31,6 @@ function postMessage() {
         username: username.value,
         message: chatbox.value 
     }
-    socket.sendMessage(payload); //Client to Server
+    sendMessage(payload); //Client to Server
     chatbox.value = "";
 }

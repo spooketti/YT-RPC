@@ -66,7 +66,7 @@ async def recieveChat(ws,data,uid):
     for uid,ws in connected_clients.items():
         payload = {
         "username":data.get("username"),
-        "message": data.get("mesage"),
+        "message": data.get("message"),
         "context":"chatSTC",
         "color":uuidColor(uid)
     }
