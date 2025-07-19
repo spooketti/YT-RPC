@@ -121,3 +121,32 @@ async function startBroadcast() {
 
     ws.send(JSON.stringify({context:"BroadcastReady"}))
 }
+
+let fontInject = document.createElement("link")
+fontInject.rel = "stylesheet"
+fontInject.href = "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+document.head.appendChild(fontInject)
+
+const sheet = document.styleSheets[0];
+sheet.insertRule('#rpcNotif:hover { filter:opacity(0); }', sheet.cssRules.length);
+
+let ltNotif = document.createElement("div")
+ltNotif.style.position = "fixed"
+ltNotif.style.top = 0
+ltNotif.style.right = 0
+ltNotif.textContent = "YT-RPC Listen Together Notifications"
+ltNotif.style.backgroundColor = "white"
+ltNotif.style.display = "flex"
+ltNotif.style.alignItems = "center"
+ltNotif.style.color = "black"
+ltNotif.style.zIndex = "999"
+ltNotif.style.transition = "all 0.25s"
+ltNotif.id = "rpcNotif"
+ltNotif.style.userSelect = "none"
+document.body.appendChild(ltNotif)
+
+let bellIcon = document.createElement("span")
+bellIcon.id = "rpcBellIcon"
+bellIcon.classList.add("material-symbols-outlined")
+bellIcon.innerText = "notifications"
+ltNotif.appendChild(bellIcon)
