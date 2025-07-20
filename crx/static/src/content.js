@@ -6,6 +6,7 @@ function sendToPopup(sender) {
     try {
         console.log("i dont even send")
         chrome.runtime.sendMessage({ type: "loadFromCache", message: messageCache });
+        // chrome.storage.local.set({ data: messageCache });
     } catch (e) {
       console.warn("Failed to send to popup:", e);
     }
