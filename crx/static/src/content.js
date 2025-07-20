@@ -1,17 +1,16 @@
 ws = new WebSocket("wss://yt-rpc.onrender.com")
-let popupPort = null;
+let messageCache = []
 
-chrome.runtime.onConnect.addListener((port) => {
-  if (port.name === "YT-RPC-chatport") {
-    popupPort = port;
-  }
-});
 
-function sendToPopup() {
-  if (popupPort) {
-    popupPort.postMessage({ payload: "chat" });
-  }
+function sendToPopup(sender) {
+    try {
+        console.log("i dont even send")
+        chrome.runtime.sendMessage({ type: "loadFromCache", message: messageCache });
+    } catch (e) {
+      console.warn("Failed to send to popup:", e);
+    }
 }
+
 
 ws.onopen = () => {
     console.log("YT-RPC: Connected to Websocket")
@@ -55,8 +54,21 @@ ws.onmessage = async function (event) {
         case "iceToStreamerServer":
             globalPeer.addIceCandidate(new RTCIceCandidate(JSON.parse(messageData["candidate"])));
         break;
+
+        case "chatSTC":
+            cacheChat(messageData)
+        break;
     }
 };
+
+function cacheChat(messageData)
+{
+    messageCache.push(messageData)
+    if(messageCache.length > 20)
+    {
+        messageCache.shift()
+    }
+}
 
 async function viewerOfferServer(messageData) {
     const peer = new RTCPeerConnection(servers);
@@ -99,6 +111,10 @@ function sendMessage(message) {
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.action === "startBroadcast") {
         chromeToGetMediaHandshake()
+    }
+    if(message.action === "popupOpen")
+    {
+        sendToPopup(sender);
     }
     return false;
 });
