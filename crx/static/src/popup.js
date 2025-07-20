@@ -1,3 +1,5 @@
+let rpcFrame = document.getElementById("rpcFrame")
+
 document.getElementById("streamMusic").addEventListener("click", async () => {
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
@@ -14,6 +16,7 @@ async function init() {
   }, 500);
 }
 
+
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         if (request.msg === "BGnewMSG") {
@@ -25,5 +28,5 @@ chrome.runtime.onMessage.addListener(
 init()
 
 function loadFromCache(data) {
-  
+   rpcFrame.contentWindow.postMessage({ action: "loadCache", cache:data});
 }

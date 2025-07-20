@@ -30,29 +30,43 @@ socket.onmessage = async function (event) {
             break;
         case "iceToViewerServer":
             globalPeer.addIceCandidate(new RTCIceCandidate(JSON.parse(messageData["candidate"])));
-        break;
-        case "artUpdate":
-            document.getElementById("albumCover").src = messageData["imageURL"]
-            document.getElementById("songTitle").innerText = messageData["title"]
-            document.getElementById("songArtist").innerText = messageData["artist"]
-        break;
+            break;
+        // case "artUpdate":
+        //     document.getElementById("albumCover").src = messageData["imageURL"]
+        //     document.getElementById("songTitle").innerText = messageData["title"]
+        //     document.getElementById("songArtist").innerText = messageData["artist"]
+        // break;
         case "chatSTC":
-            let chatbody = document.getElementById("chatBody")
-            let messageWrapper = document.createElement("div")
-            messageWrapper.classList.add("chatMessage")
-            let chatUN = document.createElement("span")
-            chatUN.classList.add("chatUN")
-            chatUN.textContent = `${messageData["username"]}:`
-            chatUN.style.color = messageData["color"]
-            let chatMSG = document.createElement("span")
-            chatMSG.classList.add("chatMSG")
-            chatMSG.textContent = messageData["message"]
-            messageWrapper.appendChild(chatUN)
-            messageWrapper.appendChild(chatMSG)
-            chatbody.appendChild(messageWrapper)
+                createMessage(messageData)
             break;
     }
 };
+
+function createMessage(messageData) {
+    let chatbody = document.getElementById("chatBody")
+    let messageWrapper = document.createElement("div")
+    messageWrapper.classList.add("chatMessage")
+    let chatUN = document.createElement("span")
+    chatUN.classList.add("chatUN")
+    chatUN.textContent = `${messageData["username"]}:`
+    chatUN.style.color = messageData["color"]
+    let chatMSG = document.createElement("span")
+    chatMSG.classList.add("chatMSG")
+    chatMSG.textContent = messageData["message"]
+    messageWrapper.appendChild(chatUN)
+    messageWrapper.appendChild(chatMSG)
+    chatbody.appendChild(messageWrapper)
+}
+
+window.addEventListener("message", (event) => {
+    const { action, selector } = event.data;
+    if (action === "loadCache") {
+        document.getElementById("songMenu").remove()
+        for (let i = 0; i < data.cache.length; i++) {
+            createMessage(data.cache[0])
+        }
+    }
+});
 
 function sendMessage(message) {
     if (socket.readyState === WebSocket.OPEN) {
@@ -91,17 +105,17 @@ function viewerAcceptServer(messageData) {
 
 async function watch() {
     const peer = new RTCPeerConnection(servers);
-    peer.addTransceiver("video", {direction:"recvonly"})
+    peer.addTransceiver("video", { direction: "recvonly" })
     peer.addTransceiver("audio", { direction: "recvonly" });
     const offer = await peer.createOffer();
     await peer.setLocalDescription(offer);
-    
+
     peer.onicecandidate = (e) => {
         if (e.candidate) {
             sendMessage({ context: "iceToStreamerClient", candidate: JSON.stringify(e.candidate.toJSON()) });
         }
     };
-    
+
     globalPeer = peer;
     sendMessage({ context: "viewerOfferClient", sdp: offer.sdp });
 }
