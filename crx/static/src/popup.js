@@ -1,5 +1,3 @@
-let rpcFrame = document.getElementById("rpcFrame")
-rpcFrame.contentWindow.postMessage({ action: "removeSongMenu"});
 
 document.getElementById("streamMusic").addEventListener("click", async () => {
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -12,13 +10,28 @@ async function init() {
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   chrome.tabs.sendMessage(tab.id, { action: "popupOpen" });
   setTimeout(async () => {
-    messagecache = await chrome.storage.local.get('cache');
+    messageCache = await chrome.storage.local.get('cache');
     loadFromCache(messageCache)
   }, 500);
 }
 
 init()
 
-function loadFromCache(data) {
-   rpcFrame.contentWindow.postMessage({ action: "loadCache", cache:data});
+function loadFromCache(cache) {
+  let chatbody = document.getElementById("chatBody")
+  for(let i=0;i<messageCache.cache.length;i++)
+  {
+    let messageWrapper = document.createElement("div")
+    messageWrapper.classList.add("chatMessage")
+    let chatUN = document.createElement("span")
+    chatUN.classList.add("chatUN")
+    chatUN.textContent = `${messageCache.cache[i]["username"]}:`
+    chatUN.style.color = messageCache.cache[i]["color"]
+    let chatMSG = document.createElement("span")
+    chatMSG.classList.add("chatMSG")
+    chatMSG.textContent = messageCache.cache[i]["message"]
+    messageWrapper.appendChild(chatUN)
+    messageWrapper.appendChild(chatMSG)
+    chatbody.appendChild(messageWrapper)
+  }
 }

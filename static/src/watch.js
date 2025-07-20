@@ -58,18 +58,18 @@ function createMessage(messageData) {
     chatbody.appendChild(messageWrapper)
 }
 
-window.addEventListener("message", (event) => {
-    const { action, selector } = event.data;
-    if (action === "loadCache") {
-        for (let i = 0; i < data.cache.length; i++) {
-            createMessage(data.cache[0])
-        }
-    }
-    if(action==="removeSongMenu")
-    {
-        document.getElementById("songMenu").remove()
-    }
-});
+// window.addEventListener("message", (event) => {
+//     const { action, cache } = event.data;
+//     if (action === "loadCache") {
+//         for (let i = 0; i < cache.length; i++) {
+//             createMessage(cache[i])
+//         }
+//     }
+//     if(action==="removeSongMenu")
+//     {
+//         document.getElementById("songMenu").remove()
+//     }
+// });
 
 function sendMessage(message) {
     if (socket.readyState === WebSocket.OPEN) {

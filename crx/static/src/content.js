@@ -68,6 +68,7 @@ function cacheChat(messageData)
     {
         messageCache.shift()
     }
+    console.log(messageCache)
     sendToPopup("newMSG",messageData)
 }
 

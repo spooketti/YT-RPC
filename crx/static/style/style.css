@@ -1,6 +1,6 @@
 html
 {
-    height:800px;
+    height: 584px;
     width:700px;
     margin-top: 60px;
 }
@@ -19,6 +19,7 @@ html
     display: flex;
     align-items: center;
     padding-left: 10px;
+    z-index: 9;
 }
 
 @keyframes gradient-animation {
@@ -67,12 +68,15 @@ html
 {
     height:50px;
     background-color: rgb(69 45 76);
-    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     color:yellow;
     font-family: "Noto Music", serif;
+    width: 300px;
+    position: absolute;
+    top: 60;
+    right: 0;
 }
 
 #chatBody
@@ -83,15 +87,21 @@ html
     width: 100%;
     height: calc(100% - 210px); /*why is this 210px? who knows*/
     overflow: auto;
+    position: absolute;
+    top: 110px;
+    width: 300px;
+    right: 0;
 }
 
 #chatControl
 {
     position:absolute;
     height:100px;
-    bottom: 61px; /*why this is 61px? who knows*/
     background-color: rgb(60, 33, 68);
     width: 100%;
+    bottom: 0px;
+    width: 300px;
+    right: 0;
 }
 
 .chatMessage
