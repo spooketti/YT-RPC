@@ -1,4 +1,5 @@
 let rpcFrame = document.getElementById("rpcFrame")
+rpcFrame.contentWindow.postMessage({ action: "removeSongMenu"});
 
 document.getElementById("streamMusic").addEventListener("click", async () => {
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -12,18 +13,9 @@ async function init() {
   chrome.tabs.sendMessage(tab.id, { action: "popupOpen" });
   setTimeout(async () => {
     messagecache = await chrome.storage.local.get('cache');
-    console.log(messageCache)
+    loadFromCache(messageCache)
   }, 500);
 }
-
-
-chrome.runtime.onMessage.addListener(
-    function(request, sender, sendResponse) {
-        if (request.msg === "BGnewMSG") {
-           loadFromCache(data)
-        }
-    }
-);
 
 init()
 

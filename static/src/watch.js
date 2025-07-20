@@ -61,10 +61,13 @@ function createMessage(messageData) {
 window.addEventListener("message", (event) => {
     const { action, selector } = event.data;
     if (action === "loadCache") {
-        document.getElementById("songMenu").remove()
         for (let i = 0; i < data.cache.length; i++) {
             createMessage(data.cache[0])
         }
+    }
+    if(action==="removeSongMenu")
+    {
+        document.getElementById("songMenu").remove()
     }
 });
 
