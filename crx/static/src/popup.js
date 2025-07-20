@@ -14,8 +14,16 @@ async function init() {
   }, 500);
 }
 
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+        if (request.msg === "BGnewMSG") {
+           loadFromCache(data)
+        }
+    }
+);
+
 init()
 
-function loadFromCache() {
+function loadFromCache(data) {
   
 }

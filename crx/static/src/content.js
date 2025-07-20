@@ -2,10 +2,9 @@ ws = new WebSocket("wss://yt-rpc.onrender.com")
 let messageCache = []
 
 
-function sendToPopup(sender) {
+function sendToPopup(typeString,msg) {
     try {
-        console.log("i dont even send")
-        chrome.runtime.sendMessage({ type: "loadFromCache", message: messageCache });
+        chrome.runtime.sendMessage({ type: typeString, message: msg });
         // chrome.storage.local.set({ data: messageCache });
     } catch (e) {
       console.warn("Failed to send to popup:", e);
@@ -69,6 +68,7 @@ function cacheChat(messageData)
     {
         messageCache.shift()
     }
+    sendToPopup("newMSG",messageData)
 }
 
 async function viewerOfferServer(messageData) {
@@ -115,7 +115,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     }
     if(message.action === "popupOpen")
     {
-        sendToPopup(sender);
+        sendToPopup("loadFromCache",messageCache);
     }
     return false;
 });
