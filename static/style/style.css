@@ -137,3 +137,28 @@ html
   color:black;
   font-size: large;
 }
+
+@media (max-width: 768px) {
+  #songMenu {
+    width:auto;
+  }
+
+  #chatMenu
+  {
+    position: relative;
+    top: 100%;
+    width: 100%;
+  }
+
+  #menuWrapper
+  {
+    overflow: scroll;
+  }
+}
+
+#sendbutton
+{
+      background-color: #653e65;
+      color:yellow;
+      font-family: "Noto Music", serif;
+}
