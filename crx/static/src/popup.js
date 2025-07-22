@@ -16,6 +16,12 @@ async function init() {
 }
 
 init()
+document.getElementById("hasStream").textContent = ""
+if(chrome.storage.local.get("hasRequest"))
+{
+  document.getElementById("hasStream").textContent = "New request to Listen Together"
+  chrome.storage.local.set({hasRequest: false})
+}
 
 function loadFromCache(cache) {
   let chatbody = document.getElementById("chatBody")
@@ -35,3 +41,4 @@ function loadFromCache(cache) {
     chatbody.appendChild(messageWrapper)
   }
 }
+

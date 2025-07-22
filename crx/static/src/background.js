@@ -3,11 +3,15 @@ chrome.runtime.onMessage.addListener(
     if (request.type === "loadFromCache") {
       chrome.storage.local.set({ cache: request.message });
     }
-    if (request.type === "newMSG") {
-      chrome.runtime.sendMessage({
-        msg: "BGnewMSG",
-        data: request.message
-      });
+    // if (request.type === "newMSG") {
+    //   chrome.runtime.sendMessage({
+    //     msg: "BGnewMSG",
+    //     data: request.message
+    //   });
+    // }
+    if(request.type === "streamRequest")
+    {
+      chrome.storage.local.set({hasRequest: true})
     }
   }
 );

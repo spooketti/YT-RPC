@@ -2,6 +2,10 @@ import asyncio
 import websockets
 import json
 import uuid
+import time
+
+#TODO: in the event of making a rooms system: make this not global but this todo basically just means recode YT-RPC and i aint about allat
+lastRequestTimestamp = time.time() #time since someone last pushed the button
 
 print("the saints went marching in")
 connected_clients = {}
@@ -10,6 +14,13 @@ broadcasterID = None
 async def viewerOfferClient(ws,data,uid):
     global broadcasterID
     if broadcasterID == None:
+        if time.time() - lastRequestTimestamp > 5:
+            lastRequestTimestamp = time.time()
+            payload = {
+                "context":"streamRequest"
+                }
+            for uid,ws in connected_clients.items():
+                await ws.send(json.dumps(payload))
         return
     sdp = data.get("sdp")
     returnSocket = uid

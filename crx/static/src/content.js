@@ -87,6 +87,10 @@ ws.onmessage = async function (event) {
         case "chatSTC":
             cacheChat(messageData)
         break;
+
+        case "streamRequest": //someone is requesting for you to stream
+            sendToPopup("streamRequest",null);
+        break;
     }
 };
 
