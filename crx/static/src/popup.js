@@ -17,10 +17,10 @@ async function init() {
 
 init()
 document.getElementById("hasStream").textContent = ""
-if(chrome.storage.local.get("hasRequest"))
+if(chrome.storage.local.get("hasRequest") == "request")
 {
   document.getElementById("hasStream").textContent = "New request to Listen Together"
-  chrome.storage.local.set({hasRequest: false})
+  chrome.storage.local.set({hasRequest: "no request"})
 }
 
 function loadFromCache(cache) {

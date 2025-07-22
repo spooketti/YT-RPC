@@ -13,6 +13,7 @@ broadcasterID = None
 
 async def viewerOfferClient(ws,data,uid):
     global broadcasterID
+    global lastRequestTimestamp
     if broadcasterID == None:
         if time.time() - lastRequestTimestamp > 5:
             lastRequestTimestamp = time.time()

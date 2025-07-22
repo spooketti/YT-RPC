@@ -89,7 +89,9 @@ ws.onmessage = async function (event) {
         break;
 
         case "streamRequest": //someone is requesting for you to stream
+        
             sendToPopup("streamRequest",null);
+                setNotifMenuGreen()
         break;
     }
 };
@@ -103,7 +105,12 @@ function cacheChat(messageData)
     }
     console.log(messageCache)
     sendToPopup("newMSG",messageData)
-    bellIcon.textContent = "notifications_active"
+    setNotifMenuGreen()
+}
+
+function setNotifMenuGreen()
+{
+     bellIcon.textContent = "notifications_active"
     ltNotif.style.backgroundColor = "#c4ffc9"
     bellIcon.style.backgroundColor = "#c4ffc9"
     setTimeout(() => {
