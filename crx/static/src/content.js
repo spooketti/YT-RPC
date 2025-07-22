@@ -1,6 +1,35 @@
 ws = new WebSocket("wss://yt-rpc.onrender.com")
 let messageCache = []
 
+let fontInject = document.createElement("link")
+fontInject.rel = "stylesheet"
+fontInject.href = "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+document.head.appendChild(fontInject)
+
+const sheet = document.styleSheets[0];
+sheet.insertRule('#rpcNotif:hover { filter:opacity(0); }', sheet.cssRules.length);
+
+let ltNotif = document.createElement("div")
+ltNotif.style.position = "fixed"
+ltNotif.style.top = 0
+ltNotif.style.right = 0
+ltNotif.textContent = "YT-RPC Listen Together Notifications"
+ltNotif.style.backgroundColor = "white"
+ltNotif.style.display = "flex"
+ltNotif.style.alignItems = "center"
+ltNotif.style.color = "black"
+ltNotif.style.zIndex = "999"
+ltNotif.style.transition = "all 0.25s"
+ltNotif.id = "rpcNotif"
+ltNotif.style.userSelect = "none"
+document.body.appendChild(ltNotif)
+
+let bellIcon = document.createElement("span")
+bellIcon.id = "rpcBellIcon"
+bellIcon.classList.add("material-symbols-outlined")
+bellIcon.innerText = "notifications"
+ltNotif.appendChild(bellIcon)
+
 
 function sendToPopup(typeString,msg) {
     try {
@@ -70,6 +99,12 @@ function cacheChat(messageData)
     }
     console.log(messageCache)
     sendToPopup("newMSG",messageData)
+    bellIcon.textContent = "notifications_active"
+    ltNotif.style.backgroundColor = "#c4ffc9"
+    bellIcon.style.backgroundColor = "#c4ffc9"
+    setTimeout(() => {
+        bellIcon.textContent = "notifications"
+    }, 800);
 }
 
 async function viewerOfferServer(messageData) {
@@ -116,6 +151,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     }
     if(message.action === "popupOpen")
     {
+        ltNotif.style.backgroundColor = "white"
+        bellIcon.style.backgroundColor = "white"
         sendToPopup("loadFromCache",messageCache);
     }
     return false;
@@ -139,32 +176,3 @@ async function startBroadcast() {
 
     ws.send(JSON.stringify({context:"BroadcastReady"}))
 }
-
-let fontInject = document.createElement("link")
-fontInject.rel = "stylesheet"
-fontInject.href = "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
-document.head.appendChild(fontInject)
-
-const sheet = document.styleSheets[0];
-sheet.insertRule('#rpcNotif:hover { filter:opacity(0); }', sheet.cssRules.length);
-
-let ltNotif = document.createElement("div")
-ltNotif.style.position = "fixed"
-ltNotif.style.top = 0
-ltNotif.style.right = 0
-ltNotif.textContent = "YT-RPC Listen Together Notifications"
-ltNotif.style.backgroundColor = "white"
-ltNotif.style.display = "flex"
-ltNotif.style.alignItems = "center"
-ltNotif.style.color = "black"
-ltNotif.style.zIndex = "999"
-ltNotif.style.transition = "all 0.25s"
-ltNotif.id = "rpcNotif"
-ltNotif.style.userSelect = "none"
-document.body.appendChild(ltNotif)
-
-let bellIcon = document.createElement("span")
-bellIcon.id = "rpcBellIcon"
-bellIcon.classList.add("material-symbols-outlined")
-bellIcon.innerText = "notifications"
-ltNotif.appendChild(bellIcon)
