@@ -11,7 +11,7 @@ chrome.runtime.onMessage.addListener(
     // }
     if(request.type === "streamRequest")
     {
-      chrome.storage.local.set({hasRequest: "request"})
+      chrome.storage.local.set({watchrequest: "request"})
     }
   }
 );

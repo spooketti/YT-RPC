@@ -9,6 +9,12 @@ document.getElementById("streamMusic").addEventListener("click", async () => {
 async function init() {
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   chrome.tabs.sendMessage(tab.id, { action: "popupOpen" });
+  document.getElementById("hasStream").textContent = ""
+  requeststatus = await chrome.storage.local.get("watchrequest")
+  if (requeststatus.watchrequest === "request") {
+    document.getElementById("hasStream").textContent = "New request to Listen Together"
+    chrome.storage.local.set({ watchrequest: "no request" })
+  }
   setTimeout(async () => {
     messageCache = await chrome.storage.local.get('cache');
     loadFromCache(messageCache)
@@ -16,17 +22,10 @@ async function init() {
 }
 
 init()
-document.getElementById("hasStream").textContent = ""
-if(chrome.storage.local.get("hasRequest") == "request")
-{
-  document.getElementById("hasStream").textContent = "New request to Listen Together"
-  chrome.storage.local.set({hasRequest: "no request"})
-}
 
 function loadFromCache(cache) {
   let chatbody = document.getElementById("chatBody")
-  for(let i=0;i<messageCache.cache.length;i++)
-  {
+  for (let i = 0; i < messageCache.cache.length; i++) {
     let messageWrapper = document.createElement("div")
     messageWrapper.classList.add("chatMessage")
     let chatUN = document.createElement("span")
