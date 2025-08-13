@@ -9,7 +9,7 @@ This project requires you to generate a YouTube API key, specifically the YouTub
 
 
 # Running YT-RPC
-Navigate to the Google Cloud developer console and obtain an api key for the data API, then create a file into rpc and create a .env file with the value YOUTUBE_API_KEY="yourkey"
+Navigate to the Google Cloud developer console and obtain an api key for the data API, then create a file into rpc named .env with the value YOUTUBE_API_KEY="yourkey"
 This project comes with certain songs with custom properties such as a hover text or custom animated album art, which is changeable in custom.json
 Either open YT-RPC in a code editor of your choice and run main.py in the rpc folder (only use this for development purposes such as previewing custom.json changes) <br>
 Albiet untested, running the script raw with Python<br>
