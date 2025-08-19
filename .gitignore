@@ -7,3 +7,4 @@ build
 dist
 crx.pem
 # maybe main.spec
+notes.txt
