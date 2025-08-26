@@ -11,8 +11,15 @@ from pathlib import Path
 import json
 import os
 import random
+import argparse
+parser = argparse.ArgumentParser()
 load_dotenv()
 
+parser.add_argument("-nodiscord","--nodiscord",help="Run without Discord (just YT-music)",type=bool)
+args = parser.parse_args()
+
+workingOnBlockedWifi = bool(args.nodiscord)
+print(workingOnBlockedWifi == True)
 # options = webdriver.ChromeOptions()
 options = webdriver.EdgeOptions()
 BASE_DIR = Path(__file__).parent
@@ -33,9 +40,9 @@ if(not client_id):
 ytApiKey = os.getenv("YOUTUBE_API_KEY")
 RPC = None
 # workingOnBlockedWifi = False
-# if(not workingOnBlockedWifi):
-RPC = Presence(client_id)
-RPC.connect()
+if(not workingOnBlockedWifi):
+    RPC = Presence(client_id)
+    RPC.connect()
 driver = webdriver.Edge(options=options) # i use edge cause it guilt tripped me into using it (not true anymore)
 driver.get("https://music.youtube.com")
 youtube = build("youtube","v3",developerKey=ytApiKey)
@@ -87,6 +94,9 @@ lastTitle = "  "
 
 
 while True:
+    if(workingOnBlockedWifi):
+        time.sleep(100)
+        continue
     try:
         isPaused = driver.execute_script("return document.querySelector('video').paused;")
         
