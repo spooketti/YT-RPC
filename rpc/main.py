@@ -15,11 +15,12 @@ import argparse
 parser = argparse.ArgumentParser()
 load_dotenv()
 
-parser.add_argument("-nodiscord","--nodiscord",help="Run without Discord (just YT-music)",type=bool)
+parser.add_argument("-nodiscord","--nodiscord",help="Run without Discord (just YT-music)",action=argparse.BooleanOptionalAction)
 args = parser.parse_args()
 
-workingOnBlockedWifi = bool(args.nodiscord)
-print(workingOnBlockedWifi == True)
+print(args.nodiscord)
+noDiscord = bool(args.nodiscord)
+print(noDiscord)
 # options = webdriver.ChromeOptions()
 options = webdriver.EdgeOptions()
 BASE_DIR = Path(__file__).parent
@@ -40,7 +41,7 @@ if(not client_id):
 ytApiKey = os.getenv("YOUTUBE_API_KEY")
 RPC = None
 # workingOnBlockedWifi = False
-if(not workingOnBlockedWifi):
+if(not noDiscord):
     RPC = Presence(client_id)
     RPC.connect()
 driver = webdriver.Edge(options=options) # i use edge cause it guilt tripped me into using it (not true anymore)
@@ -94,7 +95,7 @@ lastTitle = "  "
 
 
 while True:
-    if(workingOnBlockedWifi):
+    if(noDiscord):
         time.sleep(100)
         continue
     try:
