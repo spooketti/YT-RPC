@@ -37,7 +37,7 @@ with open(BASE_DIR / "button.json", 'r',encoding="utf-8") as f:
 
 client_id = os.getenv('CLIENT_ID') #i only have it this way for a friend to make their git pull life easy / please do not add a client id .env property (please use my id)
 if(not client_id):
-    client_id = "1099470938891890689"
+    client_id = "1418866142448976164"
     
 ytApiKey = os.getenv("YOUTUBE_API_KEY")
 RPC = None
