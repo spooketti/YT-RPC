@@ -65,12 +65,6 @@
         "albumArt": "https://images.genius.com/f83b0048db86544e0eb6e45e8551b02e.382x382x249.gif",
         "dev title": "vampire"
     },
-    "3hgabcFcp4A": {
-        "albumText": "I JUST LOVE THE WAY YOU GOT ME FEEELIN",
-        "artist": "",
-        "albumArt": "https://media1.tenor.com/m/NgWUl-LbntoAAAAd/invincible-fly.gif",
-        "dev title": "feel it"
-    },
     "HFVlEft9uEs": {
         "albumText": "",
         "artist": "",
@@ -206,5 +200,10 @@
     {
      "albumArt":"https://i.makeagif.com/media/8-26-2025/oH4Uv7.gif",
     "dev title":"why dont you do it"
+    },
+    "XuKq7zT_0nM": 
+    {
+        "albumArt":"https://i.makeagif.com/media/9-10-2025/etYiET.gif",
+        "dev title": "illegal pink"
     }
 }

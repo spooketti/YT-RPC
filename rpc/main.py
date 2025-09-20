@@ -1,4 +1,5 @@
-from pypresence import Presence
+from pypresence import Presence, ActivityType
+import pypresence.utils
 import time
 from selenium import webdriver
 # from selenium.webdriver.edge.options import Options
@@ -109,6 +110,7 @@ while True:
                         small_image="pause",   
                         state=lastTitle,
                         buttons=buttonlist,
+                        activity_type=ActivityType.WATCHING
                         # start=time.time()
                     )
                 wasPaused = True
@@ -158,6 +160,7 @@ while True:
                 details=title,
                 small_text=artist,
                 large_text=largeText,
+                activity_type=ActivityType.LISTENING,
                 buttons=buttonlist,
                 start=int(time.time() - currentSongTime)
             )
