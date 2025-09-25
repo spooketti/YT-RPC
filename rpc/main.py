@@ -86,6 +86,13 @@ def titleOverride(songID,title):
 wasPaused = False
 lastTitle = "  "
 
+def getAlbum(original):
+    content = driver.execute_script("const links = document.querySelector('.middle-controls').querySelectorAll(`a[href*='browse']`);let content = ' ';if(links.length>0){links.forEach(link => content = link.textContent);}return content;")
+    if not(str(content).isspace()):
+        return content
+    return original
+
+
 # def radioAuraLossPrevention(albumTitle,songTitle): #returning true means that the album title has an aura loss and must be censored
 #     if albumTitle.endswith("Radio"):
 #         parts = albumTitle.rsplit(" ", 1)
@@ -142,14 +149,13 @@ while True:
         title = titleOverride(songID, title)
         lastTitle = f"Last Heard: {title}"
 
-        largeText = title
+        largeText = ""
         try:
-            largeText = driver.execute_script("const element = document.evaluate(\"//yt-formatted-string[text()='Playing from']\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue; return element.nextElementSibling.textContent;")
-            largeText = secretAlbumText(songID, largeText)
+            largeText = secretAlbumText(songID, getAlbum(title))
             if(largeText.endswith("Radio")):# if radioAuraLossPrevention(largeText,rawTitle): #prevention of aura loss
                 largeText = title
         except:
-            largeText = secretAlbumText(songID, title)
+            largeText = secretAlbumText(songID, getAlbum(title))
         channelPFP = getChannelPFP(data['items'][0]['snippet']['channelId'])
 
         currentSongTime = driver.execute_script("return document.querySelector('video').currentTime")
