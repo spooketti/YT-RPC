@@ -5,7 +5,15 @@ The listen together feature currently only works for one streamer globally, but 
 There is a websocket-based chat system allowing the braodcaster to take requests from their listening audience. 
 This project requires you to generate a YouTube API key, specifically the YouTube Data API v3
 
-![image](https://github.com/user-attachments/assets/c63aa9cb-9988-4080-964c-ae01e20ddf24)
+### Voice Call with Buttons Preview
+<img width="346" height="239" alt="image" src="https://github.com/user-attachments/assets/25647dbe-b964-4dd2-b550-5851d5ed7b26" />
+
+### Profile Preview
+<img width="365" height="152" alt="image" src="https://github.com/user-attachments/assets/25a64b60-ed46-4246-9bb0-e18b9a331d85" />
+
+### Customization via custom.json
+<img src="https://raw.githubusercontent.com/spooketti/YT-RPC/refs/heads/main/customgif.gif">
+
 
 
 # Running YT-RPC
