@@ -12,7 +12,7 @@ This project requires you to generate a YouTube API key, specifically the YouTub
 <img width="365" height="152" alt="image" src="https://github.com/user-attachments/assets/25a64b60-ed46-4246-9bb0-e18b9a331d85" />
 
 ### Customization via custom.json
-<img src="https://raw.githubusercontent.com/spooketti/YT-RPC/refs/heads/main/customgif.gif">
+![customgif](https://github.com/user-attachments/assets/5cccfcf3-c715-477a-b952-ee604bd89be3)
 
 
 
