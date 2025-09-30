@@ -87,7 +87,22 @@ wasPaused = False
 lastTitle = "  "
 
 def getAlbum(original):
-    content = driver.execute_script("const links = document.querySelector('.middle-controls').querySelectorAll(`a[href*='browse']`);let content = ' ';if(links.length>0){links.forEach(link => content = link.textContent);}return content;")
+    content = driver.execute_script("""
+    let link = document.querySelector('.middle-controls a[href*="browse"]');
+    if (link && link.textContent.trim()) {
+        return link.textContent.trim();
+    }
+
+    let playingFrom = document.querySelector('yt-formatted-string[title="Playing from"]');
+    if (playingFrom) {
+        let sibling = playingFrom.parentElement.children[1];
+        if (sibling && sibling.textContent.trim()) {
+            return sibling.textContent.trim();
+        }
+    }
+
+    return "";
+""")
     if not(str(content).isspace()):
         return content
     return original
