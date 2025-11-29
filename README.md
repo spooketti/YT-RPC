@@ -1,12 +1,12 @@
 # YouTube Music Rich Presence
 
 # Update:
-I don't really like the current system of how YT-RPC works on a user level
-It's not convienient for people to have to make api keys and have to install python of all things
-And my friend told me there should be a way to do rpc with javascript
-so ytrpc may be moving to a browser extension (if not i'll delete this update section)
-i will still be most likely using the python version cause i like being able to run my music through my terminal
-i guess i should also figure out the logistics of listen together ?
+I don't really like the current system of how YT-RPC works on a user level <br>
+It's not convienient for people to have to make api keys and have to install python of all things<br>
+And my friend told me there should be a way to do rpc with javascript<br>
+so ytrpc may be moving to a browser extension (if not i'll delete this update section)<br>
+i will still be most likely using the python version cause i like being able to run my music through my terminal<br>
+i guess i should also figure out the logistics of listen together ?<br>
 thank you
 ------
 
@@ -28,11 +28,24 @@ This project requires you to generate a YouTube API key, specifically the YouTub
 
 
 # Running YT-RPC
-Navigate to the Google Cloud developer console and obtain an api key for the data API, then create a file into rpc named .env with the value YOUTUBE_API_KEY="yourkey"
-This project comes with certain songs with custom properties such as a hover text or custom animated album art, which is changeable in custom.json
-Either open YT-RPC in a code editor of your choice and run main.py in the rpc folder (only use this for development purposes such as previewing custom.json changes) <br>
-Albiet untested, running the script raw with Python<br>
-Or compile YT-RPC into an exe using pyinstaller
+Navigate to the [Google Cloud developer](https://console.cloud.google.com) console and obtain an api key for the data API, then create a file in the rpc directory named .env with the value YOUTUBE_API_KEY="yourkey"
+
+This project comes with certain songs with custom properties with almost everything being customizable (animated album art, overriding the album name to be a message of your choice, overriding the artist, etc), which is changeable in custom.json
+
+I've personally found YT-RPC to work best by running it through my terminal
+<img width="1185" height="367" alt="image" src="https://github.com/user-attachments/assets/49575042-d646-40b3-be29-08d87b7f3c16" />
+
+
+Here's the bat script i used
+```bash
+cd "pathtoytrpc/YT-RPC/.venv/Scripts"
+call activate.bat
+cd ../../rpc
+set /p "nodiscord=Run Using Discord? saying no means dont show it as your activity (y/n)"
+If /I "%nodiscord%" == "y" (python main.py) ELSE (python main.py --nodiscord)
+```
+
+I will be providing how to install requirements.txt and a requirements.txt file shortly
 
 ## Folder Documentation
 - crx folder: chrome extension that the Selenium browser runs and sends out peerconnection with WebRTC to transfer the music out
