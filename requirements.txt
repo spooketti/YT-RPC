@@ -1,0 +1,4 @@
+pypresence==4.6.1
+selenium==4.27.1
+python-dotenv==1.0.1
+google-api-python-client==2.187.0
