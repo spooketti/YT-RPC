@@ -1,8 +1,19 @@
 # YouTube Music Rich Presence
+
+# Update:
+I don't really like the current system of how YT-RPC works on a user level
+It's not convienient for people to have to make api keys and have to install python of all things
+And my friend told me there should be a way to do rpc with javascript
+so ytrpc may be moving to a browser extension (if not i'll delete this update section)
+i will still be most likely using the python version cause i like being able to run my music through my terminal
+i guess i should also figure out the logistics of listen together ?
+thank you
+------
+
 Broadcast the status of the user's Discord account to showcase what song they are listening to<br>
 I created this project based on a personal epiphany: Spotify had too many ads and required a premium subscription to listen together, so I made it possible to listen together for free, along with ad blocking. <br>
 The listen together feature currently only works for one streamer globally, but a room system may be implemented.<br>
-There is a websocket-based chat system allowing the braodcaster to take requests from their listening audience. 
+There is a websocket-based chat system allowing the broadcaster to take requests from their listening audience. 
 This project requires you to generate a YouTube API key, specifically the YouTube Data API v3
 
 ### Voice Call with Buttons Preview
