@@ -35,6 +35,17 @@ Navigate to the [Google Cloud developer](https://console.cloud.google.com) conso
 
 This project comes with certain songs with custom properties with almost everything being customizable (animated album art, overriding the album name to be a message of your choice, overriding the artist, etc), which is changeable in custom.json
 
+For example
+```js
+"54Li_V5CUXo":{ //youtube song id findable after the v=, https://music.youtube.com/watch?v=54Li_V5CUXo <----
+        "albumText": "", //put a custom message here
+        "artist": "Joe Hisaishi", //override the artist's name (in case it's not the artist themselves who posted)
+        "albumArt": "https://miro.medium.com/v2/resize:fit:894/1*MnL6k0GSHTm7dMU5XgRDKA.gif", //you can put pngs here but this changes the album art and can be animated on discord
+        "title": "Inochi No Kioku", //override the title
+        "dev title": "inochi no kioku" //this is just for your own personal sake so you know what matches what
+    },
+```
+
 Installing Packages
 ```shell
 # navigate to the YT-RPC directory
