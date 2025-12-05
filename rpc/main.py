@@ -167,7 +167,7 @@ while True:
         largeText = ""
         try:
             largeText = secretAlbumText(songID, getAlbum(title))
-            if(largeText.endswith("Radio")):# if radioAuraLossPrevention(largeText,rawTitle): #prevention of aura loss
+            if(largeText.endswith("Mix")):# if radioAuraLossPrevention(largeText,rawTitle): #prevention of aura loss
                 largeText = title
         except:
             largeText = secretAlbumText(songID, getAlbum(title))
