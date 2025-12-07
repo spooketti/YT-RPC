@@ -21,7 +21,7 @@ This project requires you to generate a YouTube API key, specifically the YouTub
 
 Best works with Python 3.13.9
 
-Navigate to the [Google Cloud developer](https://console.cloud.google.com) console and obtain an api key for the data API, then create a file in the rpc directory named .env with the value YOUTUBE_API_KEY="yourkey"
+Navigate to the [Google Cloud developer](https://console.cloud.google.com) console and obtain an api key for the data API, then create a file in the rpc directory named .env (you will have to rename it) with the value YOUTUBE_API_KEY="keygoeshere"
 
 This project comes with certain songs with custom properties with almost everything being customizable (animated album art, overriding the album name to be a message of your choice, overriding the artist, etc), which is changeable in custom.json
 
