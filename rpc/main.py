@@ -13,6 +13,7 @@ import json
 import os
 import random
 import argparse
+import recap
 parser = argparse.ArgumentParser()
 load_dotenv()
 
@@ -185,6 +186,7 @@ while True:
                 buttons=buttonlist,
                 start=int(time.time() - currentSongTime)
             )
+        recap.writeSong(songID)
 
     except Exception as e:
         print(f"Error: {e}")
