@@ -6,6 +6,5 @@ venv
 build
 dist
 crx.pem
-recap.json
 # maybe main.spec
 notes.txt
