@@ -70,6 +70,9 @@ def getChannelPFP(channelID):
     response = request.execute()
     return response['items'][0]['snippet']['thumbnails']['default']['url']
 
+def specialChannelPFP(songID,artistPFP):
+    return customSongData.get(songID, {}).get("artistPFP", "") or artistPFP
+
 def specialSongImage(songID,imageURL):
     if random.randint(1,5) == 2 and songID == "sqK-jh4TDXo":
         return "https://c.tenor.com/Bef9g3H_63sAAAAd/tenor.gif" #1% teto pear chance
@@ -172,7 +175,7 @@ while True:
                 largeText = title
         except:
             largeText = secretAlbumText(songID, getAlbum(title))
-        channelPFP = getChannelPFP(data['items'][0]['snippet']['channelId'])
+        channelPFP = specialChannelPFP(songID,getChannelPFP(data['items'][0]['snippet']['channelId']))
 
         currentSongTime = driver.execute_script("return document.querySelector('video').currentTime")
         RPC.update(
