@@ -63,3 +63,4 @@ If /I "%nodiscord%" == "y" (python main.py) ELSE (python main.py --nodiscord)
 - server folder: runs on any public webserver
 - everything else: runs on the github pages website where people can connect, uses WebRTC to do the listen together mechanic
 
+
