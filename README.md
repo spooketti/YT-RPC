@@ -62,4 +62,3 @@ If /I "%nodiscord%" == "y" (python main.py) ELSE (python main.py --nodiscord)
 - rpc folder: (gitignored .env file with YOUTUBE_API_KEY generated from google's api, run main.py with discord client open to connect to YT-RPC
 - server folder: runs on any public webserver
 - everything else: runs on the github pages website where people can connect, uses WebRTC to do the listen together mechanic
-
